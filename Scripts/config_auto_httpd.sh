@@ -31,3 +31,5 @@ echo "<body>" >> /srv/web/index.html
 echo "<h1> UwU </h1>" >> /srv/web/index.html
 echo "</body>" >> /srv/web/index.html
 echo "</html>" >> /srv/web/index.html
+
+systemctl restart httpd
