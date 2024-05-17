@@ -18,6 +18,7 @@ sudo dnf -y install epel-release
 sudo dnf -y install fail2ban
 sudo dnf -y install vsftpd
 sudo dnf -y install clamav
+sudo dnf -y install lynx
 
 # Suppression des règles existantes
 iptables -F
