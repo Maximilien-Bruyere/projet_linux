@@ -5,7 +5,7 @@
 # son bon fonctionnement.
 #
 #
-source /etc/config_auto/config.cfg
+source ../config.cfg
 #
 #
 echo ""
