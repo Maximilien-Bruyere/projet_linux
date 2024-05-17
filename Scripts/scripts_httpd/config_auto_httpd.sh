@@ -33,3 +33,6 @@ echo "</body>" >> /srv/web/index.html
 echo "</html>" >> /srv/web/index.html
 
 systemctl restart httpd
+
+apachectl configtest
+lynx index.html
