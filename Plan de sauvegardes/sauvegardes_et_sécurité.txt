@@ -136,9 +136,34 @@ VG (Volume Group)
 1 VG pour le stockage : reste du stockage disponible 
 
 
-Ajout des partitions "/home", "/var", "/srv" en type de périphérique LVM (Logical Volume Manager) pour lier redondance (RAID) et flexibilité (LVM)
-----------------------------------------------------------------
+Lors de l'ajout du scripts.zip dans /ect, il faut impérativement exécuter la commande ci-dessous :
+sudo find /etc/Scripts -type f -exec dos2unix {} \;
 
 
+Plan de sauvegarde 
+------------------
 
+1. Que faut-il sauvegarder ?
+2. Avec quelle fréquence ?
+3. Combien de temps conservera-t-on les sauvegardes, en combien d'exemplaires ?
+4. A quel endroit seront stockées les sauvegardes et l'historique des sauvegardes ?
+5. Quels sont les besoins, en capacité, du support de sauvegarde ?
+6. Combien de temps, au plus, doit durer la sauvegarde ?
+7. Combien de temps prévoit-on pour restaurer un fichier, un système de fichiers, est-ce raisonnable ?
+8. La sauvegarde doit-elle être automatique ou manuelle ?
+9. Quelle est la méthode de sauvegarde la plus appropriée ?
+10. Quel est le support le plus approprié ?
+	• Les performances,
+	• La fiabilité,
+	• La pérennité,
+	• La portabilité,
+	• Le prix des supports,
+	• Le prix des unités de lecture/écriture,
+	• La compatibilité,
+	• La robustesse,
+	• L’encombrement (comprend le lieu de stockage).
 
+11. Quoi comme sauvegarde ? 
+	• Totale 
+	• Incrémentale 
+	• Différentielle 
