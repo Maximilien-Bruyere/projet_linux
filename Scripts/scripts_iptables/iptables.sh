@@ -45,6 +45,8 @@ iptables -A INPUT -p udp --dport 445 -j ACCEPT
 # Trafic entrant pour BIND (53)
 iptables -A INPUT -p tcp --dport 53 -j ACCEPT
 iptables -A INPUT -p udp --dport 53 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
 
 # Trafic entrant pour Chrony (123)
 iptables -A INPUT -p udp --dport 123 -j ACCEPT
@@ -61,6 +63,9 @@ iptables -A INPUT -p tcp --dport 3310 -j ACCEPT
 # Connexions déjà établies 
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Connexion au loopback (nslookup)
+iptables -I INPUT 1 -i lo -j ACCEPT
 
 # Bloquer tout le trafic qui n'est pas autorisé
 iptables -P INPUT DROP
