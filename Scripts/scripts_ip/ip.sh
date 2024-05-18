@@ -20,6 +20,7 @@ echo "- DNS PRIMAIRE : $DNS1"
 echo "- DNS SECONDAIRE : $DNS2"
 echo ""
 #
+sudo hostnamectl set-hostname $SERVERNAME
 #
 sudo nmcli con mod $INTERFACE ifname $INTERFACE ipv4.addresses $IPADD/24 ipv4.gateway $GATEWAY
 sudo nmcli con mod $INTERFACE ipv4.dns "$DNS1,$DNS2"

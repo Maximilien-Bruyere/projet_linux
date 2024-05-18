@@ -112,5 +112,3 @@ sudo nmcli con mod $INTERFACE ipv4.dns "$IPADD"
 # 6) Changer le fichier /etc/resolv.conf 
 sudo echo "nameserver $IPADD" > /etc/resolv.conf
 
-# 7) Tester si ça marche 
-nslookup $DOMAIN
