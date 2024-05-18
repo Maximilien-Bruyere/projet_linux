@@ -8,11 +8,13 @@ echo "Configuration de fail2ban"
 echo "-------------------------"
 echo ""
 
+# lancement de fail2ban
+
 systemctl start fail2ban
 systemctl enable fail2ban
 systemctl status fail2ban
 
-echo ""
+# Configuration de fail2ban 
 
 cd /etc/fail2ban
 
@@ -24,6 +26,8 @@ echo "enabled = true" >> jail.local
 
 echo "Configuration de fail2ban terminée."
 systemctl restart fail2ban
+
+# Vérification de la configuration
 fail2ban-client status
 
 echo "Configuration de fail2ban terminée."

@@ -1,3 +1,10 @@
+#!/bin/bash
+# Fichier de configuration créé dans le but d'automatiser
+# la mise en place d'un serveur web Apache.
+
+source ../config.cfg
+
+# Configuration du serveur web
 
 systemctl enable httpd
 systemctl start httpd
@@ -12,15 +19,15 @@ touch web.conf
 
 # ajout de ma config suivante dans le fichier web.conf
 echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/web.conf
-echo "ServerName www.UwU.lan" >> /etc/httpd/conf.d/web.conf
-echo "ServerAlias UwU.lan" >> /etc/httpd/conf.d/web.conf
+echo "ServerName www.$SERVERNAME.$DOMAIN" >> /etc/httpd/conf.d/web.conf
+echo "ServerAlias $SERVERNAME.lan" >> /etc/httpd/conf.d/web.conf
 echo "DocumentRoot /srv/web" >> /etc/httpd/conf.d/web.conf
 echo "<Directory /srv/web>" >> /etc/httpd/conf.d/web.conf
 echo "Options -Indexes +FollowSymLinks" >> /etc/httpd/conf.d/web.conf
 echo "AllowOverride" >> /etc/httpd/conf.d/web.conf
 echo "</Directory>" >> /etc/httpd/conf.d/web.conf
-echo "ErrorLog /var/log/httpd/UwU.log" >> /etc/httpd/conf.d/web.conf
-echo "Customlog /var/log/httpd/UwU_all.log combined" >> /etc/httpd/conf.d/web.conf
+echo "ErrorLog /var/log/httpd/$SERVERNAME.log" >> /etc/httpd/conf.d/web.conf
+echo "Customlog /var/log/httpd/$SERVERNAME_all.log combined" >> /etc/httpd/conf.d/web.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/web.conf
 
 # création d'une page index.html dans /srv/web/
@@ -31,8 +38,8 @@ echo "<body>" >> /srv/web/index.html
 echo "<h1> UwU </h1>" >> /srv/web/index.html
 echo "</body>" >> /srv/web/index.html
 echo "</html>" >> /srv/web/index.html
-
 systemctl restart httpd
 
+# Test de la configuration
 apachectl configtest
 lynx index.html
