@@ -14,7 +14,7 @@ systemctl enable chronyd
 cd /etc/ 
 
 #configuration du service chrony
-echo " allow $ADDRESS/24" >> /etc/chrony.conf
+echo " allow $ADDRESS/$MASK" >> /etc/chrony.conf
 echo "server $IPADD iburst" >> /etc/chrony.conf
 
 #redémarrage du service chrony
