@@ -44,7 +44,7 @@ echo "       #Require ip ::1" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "       Require all granted" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "     </RequireAny>" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "   </IfModule>" >> /etc/httpd/conf.d/phpMyAdmin.conf
-echo "   <IfModule !mod_authz_core.c>" >> /etc/httpd/conf.d/phpMyAdmin.conf
+echo '   <IfModule !mod_authz_core.c>' >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "     # Apache 2.2" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "     Order Deny,Allow" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "     Deny from All" >> /etc/httpd/conf.d/phpMyAdmin.conf
