@@ -1,0 +1,85 @@
+Dans ce fichier se trouvera toutes les configs manuelles qu'on devra réaliser 
+-----------------------------------------------------------------------------
+
+#######
+# SSH #
+#######
+
+Configurer le SSH - LINUX - SERVEUR
+-----------------------------------
+
+1) génération de la clé RSA
+
+- ssh-keygen
+
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/user/.ssh/id_rsa):   # Appuyez sur entrée ou changez le fichier
+    Created directory '/home/user/.ssh'.
+    Enter passphrase (empty for no passphrase):   # Mettez un mot de passe sinon
+
+
+2) Copie de la clef publique dans ~/.ssh/authorized_keys
+
+- mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+
+3) Sécurisations supplémentaires 
+
+- vi /etc/ssh/sshd_config 
+
+    # ligne 65 : changez par [no]
+    PasswordAuthentication no
+
+    # ligne 69 : Si c'est activé, changez par [no],
+    # Remplacez par [no] pour désactiver les mots de passe
+    #KbdInteractiveAuthentication yes
+    --> KbdInteractiveAuthentication no
+
+- vi /etc/ssh/sshd_config 
+- vi /etc/ssh/sshd_config.d/01-permitrootlogin.conf 
+    # Supprimez l'accès à root ssh 
+    --> PermitRootLogin no
+
+Configurer le SSH - LINUX - CLIENT
+----------------------------------
+
+# Si le fichier .ssh n'est pas créé
+
+- mkdir ~/.ssh
+- chmod 700 ~/.ssh
+
+# Sinon
+
+- scp user@ip_or_domain:/home/user/.ssh/id_rsa ~/.ssh/
+
+Configurer le SSH - WINDOWS - Putty - Client
+--------------------------------------------
+
+1) Installation de PuttyGen 
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+2) Copie du fichier id_rsa dans Windows 
+- scp user@ip_or_domain:/home/user/.ssh/id_rsa C:\Dossier\Que\Vous\Préférez
+
+3) Génération de la clé privée RSA
+
+Après avoir démarré [Puttygen.exe], cliquez sur le bouton [Load] et choisissez le fichier que vous avez copié sur votre machine depuis le serveur Linux(*Tout type de fichier "/!\")
+Ensuite, [Save private key]
+
+
+4) Choisir la clé dans Putty 
+[Connection] - [SSH] - [Auth] - [Credentials (dernière version)] - Private key file for authentification - Browse 
+
+Choisir la clé privée que vous avez créée précédement 
+
+5) Connection SSH
+Allez dans session - [Host-Name] - Mettez votre adresse ip
+
+Ensuite -> [open]
+
+Configurer le SSH - WINDOWS 11 - CLI - CLIENT
+---------------------------------------------
+
+Mettez le fichier id_rsa que vous avez récupéré dans votre serveur Linux puis ajoutez le dans : C:\Users\username\.ssh\
+
+Connectez vous dans votre shell -> ssh user@ip_or_domain
+
