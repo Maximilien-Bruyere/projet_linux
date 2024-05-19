@@ -15,6 +15,14 @@ source install.sh
 cd /etc/Scripts/scripts_dns
 source dns.sh
 
+# Configuration du service Chrony
+cd /etc/Scripts/scripts_chrony
+source chrony.sh
+
+# Configuration du serveur NFS
+cd /etc/Scripts/scripts_nfs
+source nfs.sh
+
 # Configuration du pare-feu
 cd /etc/Scripts/scripts_iptables
 source iptables.sh

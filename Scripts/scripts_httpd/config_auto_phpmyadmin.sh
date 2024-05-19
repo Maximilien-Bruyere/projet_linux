@@ -9,18 +9,8 @@ echo ""
 echo "Installation de phpMyAdmin"
 echo "--------------------------"
 echo ""
+
 # installation des paquets nécessaires et ajoute des repository
-dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
-dnf install https://rpms.remirepo.net/enterprise/9/remi/x86_64/php-fedora-autoloader-1.0.1-2.el9.remi.noarch.rpm
-
-# En cas de  soucis 
-
-#sudo dnf install --nogpgcheck https://rpms.remirepo.net/enterprise/remi-release-9.rpm
-#dnf install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-dnf --enablerepo=remi install phpMyAdmin
-
-# Configuration de phpMyAdmin
 service httpd restart
 
 echo "# phpMyAdmin - Web based MySQL browser written in php" > /etc/httpd/conf.d/phpMyAdmin.conf

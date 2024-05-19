@@ -48,8 +48,9 @@ iptables -A INPUT -p udp --dport 53 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
 iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
 
-# Trafic entrant pour Chrony (123)
+# Trafic entrant pour Chrony 
 iptables -A INPUT -p udp --dport 123 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
 
 # Trafic entrant pour MySQL (3306)
 iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
