@@ -8,13 +8,13 @@ sudo dnf remove firewalld.service
 # Suppression des règles existantes
 iptables -F
 
-# Trafic entrant port 22 (SSH)
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p udp --dport 22 -j ACCEPT
+# Trafic entrant port 6969 (SSH)
+iptables -A INPUT -p tcp --dport 6969 -j ACCEPT
+iptables -A INPUT -p udp --dport 6969 -j ACCEPT
 
-# Trafic sortant port 22 (SSH)
-iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
-iptables -A OUTPUT -p udp --sport 22 -j ACCEPT
+# Trafic sortant port 6969 (SSH)
+iptables -A OUTPUT -p tcp --sport 6969 -j ACCEPT
+iptables -A OUTPUT -p udp --sport 6969 -j ACCEPT
 
 # Autoriser le ping entrant
 iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
