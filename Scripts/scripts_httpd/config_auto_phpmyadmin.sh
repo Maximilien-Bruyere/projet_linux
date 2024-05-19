@@ -76,6 +76,8 @@ echo "#    </Directory>" >> /etc/httpd/conf.d/phpMyAdmin.conf
 echo "#</IfModule>" >> /etc/httpd/conf.d/phpMyAdmin.conf
 
 # Création d'un lien symbolique
+cd /srv/web 
+mkdir phpMyAdmin
 ln -s /usr/share/phpMyAdmin/ /srv/web/phpMyAdmin
 
 
