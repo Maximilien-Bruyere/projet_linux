@@ -91,7 +91,7 @@ sudo cat << EOF > /var/named/$SERVERNAME.reversed
 )
         IN  NS      $SERVERNAME.$DOMAIN.
 
-3      IN  PTR     $SERVERNAME.$DOMAIN.
+$LAST8BITS      IN  PTR     $SERVERNAME.$DOMAIN.
 EOF
 
 # définir bind juste pour l'IPv4
