@@ -16,8 +16,7 @@ echo "Configuration du serveur :"
 echo "- INTERFACE : $INTERFACE"
 echo "- IPV4 : $IPADD2/24"
 echo "- GATEWAY : $GATEWAY"
-echo "- DNS PRIMAIRE : $DNS1"
-echo "- DNS SECONDAIRE : $DNS2"
+echo "- DNS PRIMAIRE : $IPADD"
 echo ""
 #
 #
