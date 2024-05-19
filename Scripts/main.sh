@@ -10,8 +10,10 @@ source ip.sh
 # Installation des paquets 
 cd /etc/Scripts/scripts_install
 source install.sh
+echo "Test pour voir si tous les paquets ont été correctement installés"
+source install.sh
 
-# Configuration du DNS
+# Configuration du service BIND
 cd /etc/Scripts/scripts_dns
 source dns.sh
 
@@ -19,9 +21,26 @@ source dns.sh
 cd /etc/Scripts/scripts_chrony
 source chrony.sh
 
-# Configuration du serveur NFS
+# Configuration du service NFS
 cd /etc/Scripts/scripts_nfs
 source nfs.sh
+
+# Configuration du service SMB
+cd /etc/Scripts/scripts_samba
+source samba.sh
+
+# Configuration du service VSFTP
+cd /etc/Scripts/scripts_vsftpd
+source vsftpd.sh
+
+# Configuration du service HTTPD / PHPMYADMIN
+cd /etc/Scripts/scripts_httpd
+source phpmyadmin.sh
+#source httpd.sh
+
+# Configuration du service Fail2Ban
+# cd /etc/Scripts/scripts_fail2ban
+# source fail2ban.sh
 
 # Configuration du pare-feu
 cd /etc/Scripts/scripts_iptables

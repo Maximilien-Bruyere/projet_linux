@@ -83,3 +83,13 @@ Mettez le fichier id_rsa que vous avez récupéré dans votre serveur Linux puis
 
 Connectez vous dans votre shell -> ssh user@ip_or_domain
 
+##########
+# QUOTAS #
+##########
+
+################
+# BACKUP RSYNC #
+################
+
+
+
