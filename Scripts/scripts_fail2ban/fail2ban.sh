@@ -18,7 +18,7 @@ systemctl status fail2ban
 
 cd /etc/fail2ban
 
-echo "[DEFAULT]" >> jail.local
+echo "[DEFAULT]" > jail.local
 echo "bantime = 120" >> jail.local
 echo "maxretry = 3 " >> jail.local
 echo "[sshd] = true " >> jail.local
