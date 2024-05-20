@@ -14,8 +14,8 @@ dnf --enablerepo=epel -y install clamav clamav-update
 
 # Configuration de ClamAV
 
-# nano /etc/freshclam.conf # si tu veux look le fichier de conf
-#   # si tu veux look le fichier de conf
+# nano /etc/freshclam.conf     # si tu veux look le fichier de conf
+# nano /etc/clamd.d/scan.conf  # si tu veux look le fichier de conf
 
 mkdir /var/log/clamav
 touch /var/log/clamav/clamav-scan.log
@@ -26,3 +26,4 @@ echo "30 12 * * * /usr/bin/clamscan -ri / >> /var/log/clamav/clamav-scan.log" >>
 echo "Configuration de ClamAV terminée."
 echo "-------------------------"
 echo ""
+ 
