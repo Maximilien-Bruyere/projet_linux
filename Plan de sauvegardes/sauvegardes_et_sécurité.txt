@@ -142,3 +142,12 @@ Ajout des partitions "/home", "/var", "/srv" en type de périphérique LVM (Logi
 
 
 
+PLAN DE SAUVEGARDE
+
+Afin d'assurer la sauvegarde, l'intégrité et la confidentialité de nos données nous avons mis un plan de sauvegardes. 
+En plus du raid 1 nous allons faire des backups chaque semaine le vendredi soir à 22h. Les backups se feront sur un serveur de backup. 
+Le nom des backups suivront la nomenclature suivante "DD-MM-YYYY_Backup_serveur_linux"
+Sur ce serveur elles seront testé chaque lundi matin afin de s'assurer de leur bon fonctionnement. 
+
+Tout seras bien entendu chiffré avec l'algorhithme Luks2 afin d'assurer la confidentialité des données. 
+Nous sauvegarderons le /srv, /home, /etc, /var. 
