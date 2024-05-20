@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source config.cfg
+source ../config.cfg
 
 # Utiliser hostnamectl pour changer le nom d'hôte
 sudo hostnamectl set-hostname $SERVERNAME
