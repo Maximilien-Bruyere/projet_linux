@@ -14,3 +14,4 @@ sudo dnf -y --nogpgcheck install https://dl.fedoraproject.org/pub/epel/epel-rele
 sudo dnf -y --nogpgcheck install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
 sudo dnf -y --nogpgcheck install https://rpms.remirepo.net/enterprise/9/remi/x86_64/php-fedora-autoloader-1.0.1-2.el9.remi.noarch.rpm
 sudo dnf -y --enablerepo=remi install phpMyAdmin
+sudo dnf -y install mysql-server mysql 
