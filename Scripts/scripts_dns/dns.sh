@@ -103,6 +103,10 @@ sudo chmod 640 /var/named/$SERVERNAME.forward
 sudo chown named:named /var/named/$SERVERNAME.reversed
 sudo chmod 640 /var/named/$SERVERNAME.reversed
 
+# Recharger le cache DNS chaque heure
+sudo bash -c "(crontab -l 2>/dev/null; echo '0 * * * *  rndc dumpdb -cache') | crontab -"
+sudo bash -c "(crontab -l 2>/dev/null; echo '* 17 * * *  rndc flush') | crontab -"
+
 # 4) Recharger named 
 sudo systemctl restart named 
 

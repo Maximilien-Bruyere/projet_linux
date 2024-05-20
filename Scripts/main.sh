@@ -38,6 +38,10 @@ cd /etc/Scripts/scripts_httpd
 source phpmyadmin.sh
 #source httpd.sh
 
+# Configuration du service ClamAV
+cd /etc/Scripts/scripts_clamav
+source clamav.sh
+
 # Configuration du service Fail2Ban
 # cd /etc/Scripts/scripts_fail2ban
 # source fail2ban.sh

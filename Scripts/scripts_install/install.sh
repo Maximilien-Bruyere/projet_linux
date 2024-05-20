@@ -8,7 +8,7 @@ sudo dnf -y install bind
 sudo dnf -y install chrony
 #sudo dnf -y install fail2ban
 sudo dnf -y install vsftpd
-#sudo dnf -y install clamav
+sudo dnf -y install clamav
 sudo dnf -y install lynx
 sudo dnf -y --nogpgcheck install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 sudo dnf -y --nogpgcheck install https://rpms.remirepo.net/enterprise/remi-release-9.rpm

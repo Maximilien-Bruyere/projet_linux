@@ -20,8 +20,8 @@ dnf --enablerepo=epel -y install clamav clamav-update
 mkdir /var/log/clamav
 touch /var/log/clamav/clamav-scan.log
 
-echo "0 12 3 * * freshclam" >> /etc/cron.d 
-echo "30 12 * * * /usr/bin/clamscan -ri / >> /var/log/clamav/clamav-scan.log" >> /etc/cron.d
+sudo bash -c "(crontab -l 2>/dev/null; echo '30 12 * * * /usr/bin/clamscan -ri / >> /var/log/clamav/clamav-scan.log') | crontab -"
+sudo bash -c "(crontab -l 2>/dev/null; echo '0 12 3 * * freshclam') | crontab -"
 
 echo "Configuration de ClamAV terminée."
 echo "-------------------------"
