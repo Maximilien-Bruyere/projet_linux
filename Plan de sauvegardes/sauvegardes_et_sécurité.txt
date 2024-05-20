@@ -13,7 +13,7 @@ AlmaLinux 9.2 (fiabilité, gratuit, compatibilité RedHat)
 Serveur AlmaLinux :
 -------------------
 
-25Go + stockage RAID 25Go
+30Go + stockage RAID 30Go
 Root désactivé
 Mdp pour tout : "yyyyyy" (oui je sais, c'est très sécurisé)
 profil sécurisé : ANSSI-BP-028 (minimal)
@@ -135,6 +135,138 @@ VG (Volume Group)
 
 1 VG pour le stockage : reste du stockage disponible 
 
+
+
+
+
+
+----------------
+Serveur Backup :
+----------------
+
+30Go + stockage RAID 30Go
+Root désactivé
+Mdp pour tout : "yyyyyy" (oui je sais, c'est très sécurisé)
+profil sécurisé : ANSSI-BP-028 (minimal)
+
+Partitions
+----------
+
+1. "/" -> dossier racine : 10Go
+
+Système de fichiers : ext4
+Type de périphérique : RAID -> RAID1
+Partition chiffrée -> Luks2 (standard)
+Options de montage :
+	defaults
+	nodev
+
+---
+
+2. "/home" -> dossier utilisateurs : 2Go
+
+Système de fichiers : ext4
+Type de périphérique : RAID -> RAID1
+Partition chiffrée -> Luks2 (standard)
+Options de montage :
+	defaults
+	nodev
+	nosuid
+
+---
+
+3. "/boot" : 1024Mo
+
+Système de fichiers : ext4
+Type de périphérique : RAID -> RAID1
+Partition non-chiffrée
+Options de montage :
+	defaults
+	nodev
+	nosuid
+	noexec
+
+---
+
+4. "/backup" -> contiendra les backups du serveur principal : 12Go
+
+Système de fichiers : xfs
+Type de périphérique : backup
+Partition chiffrée -> Luks2 (standard)
+Options de montage :
+	defaults
+	nodev
+	nosuid
+
+---
+
+5. "/var" : 5Go
+
+Système de fichiers : ext4
+Type de périphérique : RAID -> RAID1
+Partition chiffrée -> Luks2 (standard)
+Options de montage :
+	defaults
+	nodev
+	nosuid
+
+---
+
+6. "BIOS Boot" -> partition nécessaire pour le démarrage d'un système qui utilise le BIOS et le GPT (GUID Partition Table) : 2Mo
+
+Système de fichiers : BIOS Boot
+Type de périphérique : Partition Standard
+Partition non-chiffrée
+
+---
+
+7. "Swap" -> La partition de swap est utilisée comme espace d’échange lorsque la mémoire RAM du système est pleine : 2Go
+
+Système de fichiers : swap
+Type de périphérique : LVM (Logical Volume Manager)
+Partition chiffrée -> Luks2 (standard)
+Options de montage : 
+	defaults
+
+---
+
+8. "/tmp" : 200Mo
+Système de fichiers : ext4
+Type de périphérique : LVM (Logical Volume Manager)
+Partition non-chiffrée
+Options de montage : 
+	defaults
+	nodev
+	nosuid
+	noexec
+
+---
+
+Remarque :
+----------
+
+Les tailles de stockage données plus haut sont minimales, vous pouvez mettre + en fonction de ce vous avez.
+
+
+Options de montage utilisées
+----------------------------
+1. nodev : indique au système de ne pas interpréter les fichiers de blocs ou de caractères spéciaux comme des périphériques.
+2. nosuid : empêche l'exécution de fichiers avec des privilèges d'utilisateur (setuid) ou de groupe élevés (setgid).
+3. noexec : empêche l'exécution de tout fichier binaire sur la partition.
+
+
+VG (Volume Group)
+-----------------
+
+1 VG pour le stockage : reste du stockage disponible 
+
+Remarques :
+-----------
+
+Après avoir mis en place les partitions, nous devons obligatoirement faire les 
+commandes suivantes :
+	- sudo dnf -y update
+	- sudo dnf -y upgrade 
 
 Lors de l'ajout du scripts.zip dans /ect, il faut impérativement exécuter la commande ci-dessous :
 sudo find /etc/Scripts -type f -exec dos2unix {} \;
