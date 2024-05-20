@@ -25,7 +25,8 @@ chmod +x /backup/backup.sh
 
 # Création de la tâche cron
 
- echo "0 13 * * * /backup/backup.sh" >> /etc/crontab
+# echo "0 13 * * * /backup/backup.sh" >> /etc/crontab
+bash -c "(crontab -l 2>/dev/null; echo '0 12 * * * /backup/backup.sh') | crontab -"
 
 echo "Configuration de rsync terminée."
 echo "-------------------------"
