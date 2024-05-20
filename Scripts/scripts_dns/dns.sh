@@ -57,7 +57,7 @@ zone "$SERVERNAME.$DOMAIN" IN {
         allow-update {none; };
 };
 
-zone "200.168.192.in-addr.arpa" IN {
+zone "1.168.192.in-addr.arpa" IN {
         type master;
         file "$SERVERNAME.reversed";
         allow-update {none;};
