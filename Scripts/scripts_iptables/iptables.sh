@@ -56,7 +56,12 @@ iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
 iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 
 # Trafic entrant pour FTP (20, 21)
-iptables -A INPUT -p tcp --dport 20:21 -j ACCEPT
+iptables -A INPUT -p tcp -m multiport --dports 21 -m comment --comment "VSFTP connection" -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp -m multiport --dports 20 -m comment --comment "VSFTP File Transfer" -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --sport 1024:65535 --dport 20:65535 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp -m multiport --dport 21 -m comment --comment "VSFTP Connect 2" -m state --state NEW -j ACCEPT
+iptables -A OUTPUT -p tcp -m multiport --dport 20 -m comment --comment "VSFTP Transfer 2 " -m state --state NEW -j ACCEPT
+iptables -A OUTPUT -p tcp -m tcp --sport 1024:65535 --dport 20:65535 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 
 # Trafic entrant pour ClamAV (3310)
 iptables -A INPUT -p tcp --dport 3310 -j ACCEPT

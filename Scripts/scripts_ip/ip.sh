@@ -22,10 +22,6 @@ echo ""
 #
 sudo hostnamectl set-hostname $SERVERNAME
 #
-sudo nmcli con mod $INTERFACE ifname $INTERFACE ipv4.addresses $IPADD/24 ipv4.gateway $GATEWAY
-sudo nmcli con mod $INTERFACE ipv4.dns "$DNS1,$DNS2"
-sudo nmcli con mod $INTERFACE ipv4.method manual
-sudo nmcli con up $INTERFACE
 sudo systemctl restart NetworkManager
 #
 #
@@ -46,4 +42,3 @@ for host in "${hosts[@]}"; do
 	break
     fi
 done
-#Les serveurs DNS seront changés quand le service sera installé (via un autre .sh) 
