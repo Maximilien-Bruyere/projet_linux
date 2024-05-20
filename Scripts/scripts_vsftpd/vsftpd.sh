@@ -48,4 +48,4 @@ echo 'fi' | sudo tee -a /etc/skel/.bash_profile
 # Création du répertoire pour l'utilisateur principal
 sudo mkdir -p /srv/ftp/$PRIMARYUSER
 sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/ftp/$PRIMARYUSER
-sudo chmod 700 /srv/web/$PRIMARYUSER
+sudo chmod 700 /srv/ftp/$PRIMARYUSER
