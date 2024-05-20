@@ -46,7 +46,6 @@ echo '    sudo chown $USER:$USER /srv/ftp/$USER' | sudo tee -a /etc/skel/.bash_p
 echo 'fi' | sudo tee -a /etc/skel/.bash_profile
 
 # Création du répertoire pour l'utilisateur principal
-sudo mkdir -p /srv/web/$PRIMARYUSER
-sudo useradd -d /srv/web/$PRIMARYUSER -s /sbin/nologin $PRIMARYUSER
-sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
+sudo mkdir -p /srv/ftp/$PRIMARYUSER
+sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/ftp/$PRIMARYUSER
 sudo chmod 700 /srv/web/$PRIMARYUSER
