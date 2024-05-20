@@ -14,6 +14,8 @@ dnf -y install rsync
 
 # Création du script de sauvegarde
 
+mkdir /backup
+
 touch /backup/backup.sh
 echo "#!/bin/bash" > /backup/backup.sh
 echo "" >> /backup/backup.sh
