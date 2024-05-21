@@ -41,7 +41,6 @@ sudo echo -e '\tpath = /srv/web/$USER' >> /etc/samba/smb.conf
 sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
 sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
 sudo echo -e "\tvalid users = $PRIMARYUSER" >> /etc/samba/smb.conf
-sudo echo -e "\tforce create mode = 700" >> /etc/samba/smb.conf
 sudo echo -e "\tinherit permissions = yes " >> /etc/samba/smb.conf
 
 # SELINUX 
