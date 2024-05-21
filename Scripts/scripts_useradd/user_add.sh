@@ -37,4 +37,22 @@ sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
 sudo echo -e "\tvalid users = $user" >> /etc/samba/smb.conf
 sudo restorecon -R /srv/web/$user
 
+# Créez un fichier HTML de base pour l'utilisateur
+cat << EOF > /srv/web/$user/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenue sur le site de $user</title>
+</head>
+<body>
+    <h1>Bienvenue sur le site de $user</h1>
+    <p>Ce site est actuellement en construction.</p>
+</body>
+</html>
+EOF
+
+# Mettez en place les permissions
+chown $user:$user /srv/web/$user/index.html
+chmod 644 /srv/web/$user/index.html
+
 systemctl restart smb

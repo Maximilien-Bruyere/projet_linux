@@ -37,6 +37,8 @@ sudo echo 'pasv_min_port=60000' >> /etc/vsftpd/vsftpd.conf
 sudo echo 'pasv_max_port=61000' >> /etc/vsftpd/vsftpd.conf
 sudo echo 'allow_writeable_chroot=YES' >> /etc/vsftpd/vsftpd.conf
 
+sudo touch /etc/vsftpd/chroot_list
+
 sudo systemctl restart vsftpd
 
 sudo setsebool -P ftpd_full_access on

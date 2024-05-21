@@ -7,20 +7,18 @@ source ../config.cfg
 # Configuration du serveur web
 
 systemctl enable httpd
-systemctl start httpd
-
-# créer le répertoire web
-cd /srv/
-mkdir web
+systemctl start httpdS
 
 # créer un fichier web.conf dans /etc/httpd/conf.d/
 cd /etc/httpd/conf.d/
 touch web.conf
 
+rm /etc/httpd/conf.d/welcome.conf
+
 # ajout de ma config suivante dans le fichier web.conf
 echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/web.conf
-echo "ServerName www.$SERVERNAME.$DOMAIN" >> /etc/httpd/conf.d/web.conf
-echo "ServerAlias $SERVERNAME.lan" >> /etc/httpd/conf.d/web.conf
+echo "ServerName www.$SERVERNAME.$DOMAIN:80" >> /etc/httpd/conf.d/web.conf
+echo "ServerAlias $SERVERNAME.$DOMAIN" >> /etc/httpd/conf.d/web.conf
 echo "DocumentRoot /srv/web" >> /etc/httpd/conf.d/web.conf
 echo "<Directory /srv/web>" >> /etc/httpd/conf.d/web.conf
 echo "Options -Indexes +FollowSymLinks" >> /etc/httpd/conf.d/web.conf
@@ -29,6 +27,7 @@ echo "</Directory>" >> /etc/httpd/conf.d/web.conf
 echo "ErrorLog /var/log/httpd/$SERVERNAME.log" >> /etc/httpd/conf.d/web.conf
 echo "Customlog /var/log/httpd/$SERVERNAME_all.log combined" >> /etc/httpd/conf.d/web.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/web.conf
+echo "ServerTokens Prod" >> /etc/httpd/conf.d/web.conf
 
 # création d'une page index.html dans /srv/web/
 cd /srv/web/
