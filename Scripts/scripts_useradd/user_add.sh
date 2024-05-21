@@ -24,7 +24,10 @@ chmod -R 750 /srv/web/$user
 
 # Créez la base de données pour l'utilisateur
 #mysql -u root -p -e "CREATE DATABASE ${user}_db; CREATE USER '${user}'@'localhost' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON ${user}_db.* TO '${user}'@'localhost'; FLUSH PRIVILEGES;"
-
+mysql -e "CREATE DATABASE IF NOT EXISTS ${user}_db;
+mysql -e "Grant all privileges on ${user}_db.* to '${user}'@'localhost' identified by 'password';"
+mysql -e "FLUSH PRIVILEGES;"
+ 
 # Configurez l'accès FTP pour l'utilisateur
 sudo echo $user >> /etc/vsftpd/chroot_list
 
