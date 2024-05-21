@@ -43,6 +43,8 @@ sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
 sudo echo -e "\tvalid users = $PRIMARYUSER" >> /etc/samba/smb.conf
 sudo echo -e "\tinherit permissions = yes " >> /etc/samba/smb.conf
 
+sudo smbpasswd -a $PRIMARYUSER
+
 # SELINUX 
 sudo setsebool -P samba_enable_home_dirs on
 sudo restorecon -R /srv/samba/public

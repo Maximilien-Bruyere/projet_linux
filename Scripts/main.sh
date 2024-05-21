@@ -3,6 +3,12 @@
 # Mettre les permissions pour exécuter les fichiers
 sudo find /etc/Scripts -type f -exec chmod 700 {} \;
 
+# Déplacement des exécutables admin dans /sbin
+cd /etc/Scripts/scripts_useradd
+chown root:root user_add.sh
+chmod 755 user._sh
+mv user_add.sh /sbin/user_add
+
 # Configuration IP
 cd /etc/Scripts/scripts_ip
 source ip.sh

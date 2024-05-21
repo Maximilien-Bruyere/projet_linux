@@ -20,7 +20,7 @@ echo '' >> /sbin/dailybackup.sh
 
 mkdir /backup/etc
 mkdir /backup/var
-mkfir /backup/srv
+mkdir /backup/srv
 mkdir /backup/home
 
 echo 'rsync -avz --delete /etc/ /backup/etc/"$(date +%Y-%m-%d)_etc"' >> /sbin/dailybackup.sh

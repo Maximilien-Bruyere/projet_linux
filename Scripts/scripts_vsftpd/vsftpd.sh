@@ -19,7 +19,7 @@ sudo sed -i '103 s/^#//g' /etc/vsftpd/vsftpd.conf
 
 sudo systemctl restart vsftpd
 
-sudo echo 'local_root=/srv/ftp/$USER' >> /etc/vsftpd/vsftpd.conf
+sudo echo 'local_root=/srv/web/$USER' >> /etc/vsftpd/vsftpd.conf
 sudo echo 'user_sub_token=$USER' >> /etc/vsftpd/vsftpd.conf
 
 sudo systemctl restart vsftpd
@@ -40,14 +40,8 @@ sudo echo 'allow_writeable_chroot=YES' >> /etc/vsftpd/vsftpd.conf
 sudo systemctl restart vsftpd
 
 sudo setsebool -P ftpd_full_access on
-sudo touch /etc/vsftpd/chroot_list
-sudo echo $PRIMARYUSER >> touch /etc/vsftpd/chroot_list
-
-#sudo mkdir -p /srv/web/$PRIMARYUSER
-#sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
-#sudo chmod 700 /srv/web/$PRIMARYUSER
 
 # Création du répertoire pour l'utilisateur principal
 sudo mkdir -p /srv/web/$PRIMARYUSER
 sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
-sudo chmod 750 /srv/web/$PRIMARYUSER
+sudo chmod 755 /srv/web/$PRIMARYUSER
