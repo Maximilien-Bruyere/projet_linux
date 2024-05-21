@@ -12,47 +12,26 @@ dnf -y install rsync
 
 # Configuration de rsync
 
-# Création du script de sauvegarde
+touch /sbin/dailybackup.sh
+echo '#!/bin/bash' > /sbin/dailybackup.sh
+echo '' >> /sbin/dailybackup.sh
+echo '# Script de sauvegarde' >> /sbin/dailybackup.sh
+echo '' >> /sbin/dailybackup.sh
 
+mkdir /backup/etc
+mkdir /backup/var
+mkfir /backup/srv
+mkdir /backup/home
 
-#touch /etc/backup.sh
-#echo "#!/bin/bash" > /etc/backup.sh
-#echo "" >> /etc/backup.sh
-#echo "# Script de sauvegarde" >> /etc/backup.sh
-#echo "" >> /etc/backup.sh
-touch /sbin/test.sh
-echo '#!/bin/bash' > /sbin/test.sh
-echo '' >> /sbin/test.sh
-echo '# Script de sauvegarde' >> /sbin/test.sh
-echo '' >> /sbin/test.sh
-#mkdir /backup/etc
-#mkdir /backup/var
-#mkfir /backup/srv
-#mkdir /backup/home
-mkdir /home/admin/backup
-mkdir /home/admin/backup/etc
-mkdir /home/admin/backup/var
-mkdir /home/admin/backup/srv
-
-
-#echo 'rsync -avz --delete /etc/ /backup/etc/"$(date +%Y-%m-%d)_etc"' >> /etc/backup.sh
-#echo 'rsync -avz --delete /var/ /backup/var/"$(date +%Y-%m-%d)_var"' >> /etc/backup.sh
-#echo 'rsync -avz --delete /srv/ /backup/etc/"$(date +%Y-%m-%d)_srv"' >> /etc/backup.sh
-#echo 'rsync -avz --delete /home/ /backup/home/"$(date +%Y-%m-%d)_home"' >> /etc/backup.sh
-echo 'rsync -avz --delete /etc/ /home/admin/backup/etc/"$(date +%Y-%m-%d)_etc"' >> /sbin/test.sh
-echo 'rsync -avz --delete /var/ /home/admin/backup/var/"$(date +%Y-%m-%d)_var"' >> /sbin/test.sh
-echo 'rsync -avz --delete /srv/ /home/admin/backup/etc/"$(date +%Y-%m-%d)_srv"' >> /sbin/test.sh
-
-#chmod +x /backup/backup.sh
-chmod +x /sbin/test.sh
+echo 'rsync -avz --delete /etc/ /backup/etc/"$(date +%Y-%m-%d)_etc"' >> /sbin/dailybackup.sh
+echo 'rsync -avz --delete /var/ /backup/var/"$(date +%Y-%m-%d)_var"' >> /sbin/dailybackup.sh
+echo 'rsync -avz --delete /srv/ /backup/etc/"$(date +%Y-%m-%d)_srv"' >> /sbin/dailybackup.sh
+echo 'rsync -avz --delete /home/ /backup/home/"$(date +%Y-%m-%d)_home"' >> /sbin/dailybackup.sh
+chmod +x /backup/backup.sh
 
 # Création de la tâche cron
 
-#bash -c "(crontab -l 2>/dev/null; echo '0 12 * * * /backup/backup.sh') | crontab -"
-bash -c "(crontab -l 2>/dev/null; echo '0 12 * * * /sbin/test.sh') | crontab -"
+bash -c "(crontab -l 2>/dev/null; echo '0 12 * * * /backup/backup.sh') | crontab -"
 echo "Configuration de rsync terminée."
 echo "-------------------------"
 echo ""
-
-
-
