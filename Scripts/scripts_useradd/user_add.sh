@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # Demandez le nom d'utilisateur
-read -p 'Entrez le nom d\'utilisateur : ' user
+read -p "Entrez le nom d'utilisateur : " user
 
 # Créez l'utilisateur
 useradd $user
@@ -20,14 +20,23 @@ mkdir -p /srv/web/$user
 
 # Mettez en place les permissions
 chown -R $user:$user /srv/web/$user
-chmod -R 770 /srv/web/$user
+chmod -R 750 /srv/web/$user
 
 # Créez la base de données pour l'utilisateur
-mysql -u root -p -e "CREATE DATABASE ${user}_db; CREATE USER '${user}'@'localhost' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON ${user}_db.* TO '${user}'@'localhost'; FLUSH PRIVILEGES;"
+#mysql -u root -p -e "CREATE DATABASE ${user}_db; CREATE USER '${user}'@'localhost' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON ${user}_db.* TO '${user}'@'localhost'; FLUSH PRIVILEGES;"
 
 # Configurez l'accès FTP pour l'utilisateur
+sudo echo $user >> /etc/vsftpd/chroot_list
 
 # Configurez l'accès Samba pour l'utilisateur
 (echo $user; echo $user) | smbpasswd -a $user
 echo -e "[$user]\npath = /srv/web/$user\nvalid users = $user\nread only = no" >> /etc/samba/smb.conf
+
+sudo echo "[$user]" >> /etc/samba/smb.conf
+sudo echo -e "\tpath = /srv/web/$user" >> /etc/samba/smb.conf
+sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
+sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
+sudo echo -e "\tvalid users = $user" >> /etc/samba/smb.conf
+sudo restorecon -R /srv/web/$user
+
 systemctl restart smb
