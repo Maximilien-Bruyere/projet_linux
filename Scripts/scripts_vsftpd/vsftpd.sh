@@ -42,20 +42,7 @@ sudo systemctl restart vsftpd
 
 sudo setsebool -P ftpd_full_access on
 sudo touch /etc/vsftpd/chroot_list
-# Ajouter les lignes suivantes à /etc/skel/.bash_profile
-echo 'if [ ! -d /srv/ftp/$USER ]; then' | sudo tee -a /etc/skel/.bash_profile
-echo '    sudo mkdir -p /srv/ftp/$USER' | sudo tee -a /etc/skel/.bash_profile
-echo '    sudo chown $USER:$USER /srv/ftp/$USER' | sudo tee -a /etc/skel/.bash_profile
-echo '    sudo echo $USER' >> /etc/vsftpd/chroot_list | sudo tee -a /etc/skel/.bash_profile 
-#echo '    sudo mkdir -p /srv/ftp/$USER' | sudo tee -a /etc/skel/.bash_profile -> Si utilisation de web
-#echo '    sudo chown $USER:$USER /srv/ftp/$USER' | sudo tee -a /etc/skel/.bash_profile
-echo 'fi' | sudo tee -a /etc/skel/.bash_profile
 
-#sudo mkdir -p /srv/web/$PRIMARYUSER
-#sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
-#sudo chmod 700 /srv/web/$PRIMARYUSER
-
-# Création du répertoire pour l'utilisateur principal
-sudo mkdir -p /srv/ftp/$PRIMARYUSER
-sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/ftp/$PRIMARYUSER
-sudo chmod 700 /srv/ftp/$PRIMARYUSER
+sudo mkdir -p /srv/web/$PRIMARYUSER
+sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
+sudo chmod 700 /srv/web/$PRIMARYUSER

@@ -6,7 +6,7 @@ sudo dnf -y install httpd
 sudo dnf -y install samba
 sudo dnf -y install bind
 sudo dnf -y install chrony
-#sudo dnf -y install fail2ban
+sudo dnf -y install fail2ban
 sudo dnf -y install vsftpd
 sudo dnf -y install clamav
 sudo dnf -y install lynx

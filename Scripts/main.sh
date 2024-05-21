@@ -43,8 +43,8 @@ cd /etc/Scripts/scripts_clamav
 source clamav.sh
 
 # Configuration du service Fail2Ban
-# cd /etc/Scripts/scripts_fail2ban
-# source fail2ban.sh
+cd /etc/Scripts/scripts_fail2ban
+source fail2ban.sh
 
 # Configuration du pare-feu
 cd /etc/Scripts/scripts_iptables
