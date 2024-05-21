@@ -172,15 +172,24 @@ sudo find /etc/Scripts -type f -exec dos2unix {} \;
 Plan de sauvegarde 
 ------------------
 
-1. Que faut-il sauvegarder ?
-2. Avec quelle fréquence ?
+1. Que faut-il sauvegarder ?  
+	/etc /srv /var /home 
+2. Avec quelle fréquence ? 
+	Tout les jours a 13h
 3. Combien de temps conservera-t-on les sauvegardes, en combien d'exemplaires ?
+	Une semaine 
 4. A quel endroit seront stockées les sauvegardes et l'historique des sauvegardes ?
+	/backup mais on aurait voulu faire un serveur de backup
 5. Quels sont les besoins, en capacité, du support de sauvegarde ?
+	50Go
 6. Combien de temps, au plus, doit durer la sauvegarde ?
+	10 min 
 7. Combien de temps prévoit-on pour restaurer un fichier, un système de fichiers, est-ce raisonnable ?
+	1h et oui
 8. La sauvegarde doit-elle être automatique ou manuelle ?
+	automatique via le crontab
 9. Quelle est la méthode de sauvegarde la plus appropriée ?
+	Différentielle
 10. Quel est le support le plus approprié ?
 	• Les performances,
 	• La fiabilité,
@@ -191,7 +200,6 @@ Plan de sauvegarde
 	• La compatibilité,
 	• La robustesse,
 	• L’encombrement (comprend le lieu de stockage).
-
 11. Quoi comme sauvegarde ? 
 	• Totale 
 	• Incrémentale 
