@@ -9,7 +9,7 @@ echo "-------------------------"
 echo ""
 
 # lancement de fail2ban
-
+dbf install fail2ban -y
 systemctl start fail2ban
 systemctl enable fail2ban
 systemctl status fail2ban
