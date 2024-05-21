@@ -31,7 +31,7 @@ Partitions
 
 1. "/" -> dossier racine : 10Go
 
-Système de fichiers : ext4
+Système de fichiers : xfs
 Type de périphérique : RAID -> RAID1
 Partition chiffrée -> Luks2 (standard)
 Options de montage :
@@ -40,7 +40,7 @@ Options de montage :
 
 ---
 
-2. "/home" -> dossier utilisateurs : 2Go
+2. "/home" -> dossier utilisateurs : 3Go
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -52,7 +52,7 @@ Options de montage :
 
 ---
 
-3. "/boot" : 1024Mo
+3. "/boot" : 2Gio
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -65,7 +65,7 @@ Options de montage :
 
 ---
 
-4. "/srv" -> données spécifiques des services (partition nécessaire) : 2Go
+4. "/srv" -> données spécifiques des services (partition nécessaire) : 7.5Go
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -97,7 +97,7 @@ Partition non-chiffrée
 
 ---
 
-7. "Swap" -> La partition de swap est utilisée comme espace d’échange lorsque la mémoire RAM du système est pleine : 2Go
+7. "Swap" -> La partition de swap est utilisée comme espace d’échange lorsque la mémoire RAM du système est pleine : 4Go
 
 Système de fichiers : swap
 Type de périphérique : LVM (Logical Volume Manager)
@@ -107,7 +107,7 @@ Options de montage :
 
 ---
 
-8. "/tmp" : 200Mo
+8. "/tmp" : 1Go
 Système de fichiers : ext4
 Type de périphérique : LVM (Logical Volume Manager)
 Partition non-chiffrée
@@ -122,7 +122,7 @@ Options de montage :
 9. "/backup" -> contiendra les backups du serveur principal : 12Go
 
 Système de fichiers : xfs
-Type de périphérique : backup
+Type de périphérique : LVM
 Partition chiffrée -> Luks2 (standard)
 Options de montage :
 	defaults
