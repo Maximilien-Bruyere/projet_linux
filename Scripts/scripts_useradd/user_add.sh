@@ -51,8 +51,29 @@ cat << EOF > /srv/web/$user/index.html
 </html>
 EOF
 
+cat << EOF > /etc/httpd/conf.d/$user.conf
+<VirtualHost *:80>
+    ServerName $user.srvlinux.g2
+    Redirect permanent / https://$user.srvlinux.g2/
+</VirtualHost>
+<VirtualHost _default_:443>
+    ServerName $user.srvlinux.g2
+    DocumentRoot /srv/web/$user
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/httpd-selfsigned.crt
+    SSLCertificateKeyFile /etc/ssl/certs/httpd-selfsigned.key
+</VirtualHost>                         
+EOF
+
+echo -e "$user\tIN\tCNAME\tsrvlinux.g2" >> /var/named/srvlinux.forward
+
 # Mettez en place les permissions
 chown $user:$user /srv/web/$user/index.html
 chmod 644 /srv/web/$user/index.html
 
+systemctl restart named 
+systemctl restart httpd
+
 systemctl restart smb
+
+

@@ -35,9 +35,21 @@ source nfs.sh
 cd /etc/Scripts/scripts_samba
 source samba.sh
 
+echo -e "\nConfiguration SSL-TLS | FTP\n"
+echo "---------------------------"
+sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/pki/tls/certs/vsftpd.pem -out /etc/pki/tls/certs/vsftpd.pem -days 3650
+echo -e "\nConfiguration SSL-TLS | Terminée\n"
+echo "--------------------------------" 
+
 # Configuration du service VSFTP - GOOD
 cd /etc/Scripts/scripts_vsftpd
 source vsftpd.sh
+
+echo -e "\nConfiguration SSL-TLS | WEB\n"
+echo "---------------------------"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/httpd-selfsigned.key -out /etc/ssl/certs/httpd-selfsigned.crt
+echo -e "\nConfiguration SSL-TLS | Terminée\n"
+echo "--------------------------------" 
 
 # Configuration du service HTTPD / PHPMYADMIN - PAS GOOD
 #cd /etc/Scripts/scripts_httpd
@@ -57,3 +69,5 @@ source fail2ban.sh
 # Configuration du pare-feu - GOOD
 cd /etc/Scripts/scripts_iptables
 source iptables.sh
+
+
