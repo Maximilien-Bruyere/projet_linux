@@ -1,5 +1,12 @@
 
-sed -i '3c\Nouveau contenu' nom_du_fichier
+#!/bin/bash
+# Fichier de configuration créé dans le but d'automatiser la mise en place d'un serveur mail
+#
+echo "Installation de postfix"
+echo "-------------------------"
+echo ""
+
+dnf -y install postfix
 
 
 sed -i '95c\myhostname = mail.srvlinux.g2' /etc/postfix/main.cf
@@ -45,35 +52,10 @@ systemctl status php-fpm
 
 echo '<?php phpinfo(); ?>' > /srv/web/info.php
 
-myhostname = mail.srv.world #95
-mydomain = srv.world #102
-myorigin = $mydomain #118
-inet_interfaces = all #135
-inet_protocols = ipv4 #138
-mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain #183
-mynetworks = 127.0.0.0/8, 10.0.0.0/24 #283
-home_mailbox = Maildir/ #438
-smtpd_banner = $myhostname ESMTP #593
+dnf -y install mariadb-server
 
----
+mysql_secure_installation
 
-listen = *, :: #30
 
-------
 
-disable_plaintext_auth = no #10
-auth_mechanisms = plain login #100
 
-------
-
-mail_location = maildir:~/Maildir #30
-# Postfix smtp-auth
-  unix_listener /var/spool/postfix/private/auth { #107-109
-    mode = 0666
-    user = postfix
-    group = postfix
-  }
-
-------
-
-ssl = yes
