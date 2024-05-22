@@ -66,6 +66,24 @@ iptables -A OUTPUT -p tcp -m tcp --sport 1024:65535 --dport 20:65535 -m conntrac
 # Trafic entrant pour ClamAV (3310)
 iptables -A INPUT -p tcp --dport 3310 -j ACCEPT
 
+# Connexion pour SMTP
+iptables -A INPUT -p tcp --dport 25 -j ACCEPT
+iptables -A INPUT -p tcp --sport 25 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 25 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 25 -j ACCEPT
+
+# Connexion pour POP
+iptables -A INPUT -p tcp --dport 110 -j ACCEPT
+iptables -A INPUT -p tcp --sport 110 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 110 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 110 -j ACCEPT
+
+# Connexion pour IMAP
+iptables -A INPUT -p tcp --dport 143 -j ACCEPT
+iptables -A INPUT -p tcp --sport 143 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 143 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 143 -j ACCEPT
+
 # Connexions déjà établies 
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
