@@ -82,15 +82,15 @@ EXIT;
 
 wget https://github.com/roundcube/roundcubemail/releases/download/1.6.0/roundcubemail-1.6.0-complete.tar.gz
 tar -xvf roundcubemail-1.6.0-complete.tar.gz
-sudo mv roundcubemail-1.6.0 /var/www/html/roundcubemail
+sudo mv roundcubemail-1.6.0 /srv/web/roundcubemail
 cd /var/www/html/roundcubemail
 sudo composer install --no-dev
 
 sudo nano /etc/httpd/conf.d/roundcubemail.conf
 
-Alias /roundcubemail /var/www/html/roundcubemail 
+Alias /roundcubemail /srv/web/roundcubemail 
 
-<Directory /var/www/html/roundcubemail>
+<Directory /srv/web/roundcubemail>
     Options -Indexes
     AllowOverride All
     Require all granted
