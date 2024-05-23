@@ -54,6 +54,7 @@ echo "--------------------------------"
 # Configuration du service HTTPD / PHPMYADMIN - PAS GOOD
 cd /etc/Scripts/scripts_httpd
 source httpd.sh
+source phpmyadmin.sh
 
 # Configuration du service ClamAV - GOOD
 cd /etc/Scripts/scripts_clamav
