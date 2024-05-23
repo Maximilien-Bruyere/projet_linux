@@ -5,40 +5,88 @@
 source ../config.cfg
 
 # Configuration du serveur web
-
+systemctl start httpd
 systemctl enable httpd
-systemctl start httpdS
 
-# créer un fichier web.conf dans /etc/httpd/conf.d/
-cd /etc/httpd/conf.d/
-touch web.conf
+# Chemin vers votre fichier httpd.conf
+HTTPD_CONF="/etc/httpd/conf/httpd.conf"
 
+# Sauvegarde 
+cp $HTTPD_CONF $HTTPD_CONF.bak
+
+# Modification du fichier httpd.conf
+sed -i '100s/.*/ServerName srvlinux.g2:80/' $HTTPD_CONF
+sed -i '149s/.*/Options FollowSymLinks/' $HTTPD_CONF
+sed -i '156s/.*/AllowOverride All/' $HTTPD_CONF
+sed -i '169s/.*/DirectoryIndex index.html index.php index.cgi/' $HTTPD_CONF
+echo "# server's response header" >> $HTTPD_CONF
+echo "ServerTokens Prod" >> $HTTPD_CONF
+
+# Suppression de la page par défaut
 rm /etc/httpd/conf.d/welcome.conf
 
-# ajout de ma config suivante dans le fichier web.conf
-echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/web.conf
-echo "ServerName www.$SERVERNAME.$DOMAIN:80" >> /etc/httpd/conf.d/web.conf
-echo "ServerAlias $SERVERNAME.$DOMAIN" >> /etc/httpd/conf.d/web.conf
-echo "DocumentRoot /srv/web" >> /etc/httpd/conf.d/web.conf
-echo "<Directory /srv/web>" >> /etc/httpd/conf.d/web.conf
-echo "Options -Indexes +FollowSymLinks" >> /etc/httpd/conf.d/web.conf
-echo "AllowOverride" >> /etc/httpd/conf.d/web.conf
-echo "</Directory>" >> /etc/httpd/conf.d/web.conf
-echo "ErrorLog /var/log/httpd/$SERVERNAME.log" >> /etc/httpd/conf.d/web.conf
-echo "Customlog /var/log/httpd/$SERVERNAME_all.log combined" >> /etc/httpd/conf.d/web.conf
-echo "</VirtualHost>" >> /etc/httpd/conf.d/web.conf
-echo "ServerTokens Prod" >> /etc/httpd/conf.d/web.conf
+# Création du VirtualHost avec SSL - Page principale
+cat << EOF > /etc/httpd/conf.d/main.conf
+<VirtualHost *:80>
+    ServerName $SERVERNAME.$DOMAIN
+    ServerAlias www.$SERVERNAME.$DOMAIN
+    Redirect permanent / https://$SERVERNAME.$DOMAIN/
+</VirtualHost>
+<VirtualHost _default_:443>
+    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
+    DocumentRoot /srv/web/
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/httpd-selfsigned.crt
+    SSLCertificateKeyFile /etc/ssl/certs/httpd-selfsigned.key
+</VirtualHost>  
+ServerTokens Prod                       
+EOF
 
-# création d'une page index.html dans /srv/web/
-cd /srv/web/
-touch index.html
-echo "<html>" >> /srv/web/index.html
-echo "<body>" >> /srv/web/index.html
-echo "<h1> UwU </h1>" >> /srv/web/index.html
-echo "</body>" >> /srv/web/index.html
-echo "</html>" >> /srv/web/index.html
-systemctl restart httpd
+# Création du VirtualHost avec SSL - Page utilisateur
+cat << EOF > /etc/httpd/conf.d/$PRIMARYUSER.conf
+<VirtualHost *:80>
+    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
+    Redirect permanent / https://$PRIMARYUSER.$SERVERNAME.$DOMAIN/
+</VirtualHost>
+<VirtualHost _default_:443>
+    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
+    DocumentRoot /srv/web/$PRIMARYUSER
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/httpd-selfsigned.crt
+    SSLCertificateKeyFile /etc/ssl/certs/httpd-selfsigned.key
+</VirtualHost>                         
+EOF
+
+# Création de la page utilisateur
+cat << EOF > /srv/web/$PRIMARYUSER/index.php
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>$PRIMARYUSER Page</title>
+    </head>
+    <body>
+        <h1>Bienvenue sur la page de $PRIMARYUSER</h1>
+    </body>
+</html>
+EOF
+
+# Création de la page principale
+cat << EOF > /srv/web/index.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Page principale</title>
+    </head>
+    <body>
+        <h1>Bienvenue sur la page principale</h1>
+    </body>
+</html>
+EOF
+
+semanage fcontext -a -e /var/www /srv/web
+restorecon -Rv /srv
 
 # Test de la configuration
 apachectl configtest
-lynx index.html

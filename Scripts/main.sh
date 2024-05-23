@@ -52,9 +52,8 @@ echo -e "\nConfiguration SSL-TLS | Terminée\n"
 echo "--------------------------------" 
 
 # Configuration du service HTTPD / PHPMYADMIN - PAS GOOD
-#cd /etc/Scripts/scripts_httpd
-#source httpd.sh
-#source phpmyadmin.sh
+cd /etc/Scripts/scripts_httpd
+source httpd.sh
 
 # Configuration du service ClamAV - GOOD
 cd /etc/Scripts/scripts_clamav
@@ -65,6 +64,10 @@ cd /etc/Scripts/scripts_fail2ban
 source fail2ban.sh
 
 # Configuration du service MAIL - PAS GOOD
+
+# BACKUP
+cd /etc/Scripts/scripts_backup
+source rsync.sh
 
 # Configuration du pare-feu - GOOD
 cd /etc/Scripts/scripts_iptables
