@@ -15,7 +15,6 @@ sudo chown -R apache:apache /var/lib/phpmyadmin
 sudo cd /usr/share/phpmyadmin/
 sudo cp config.sample.inc.php  config.inc.php
 
-sudo ln -s /usr/share/phpMyAdmin/ /srv/web/phpmyadmin
-
+sudo ln -s /usr/share/phpMyAdmin/ /srv/web/$PRIMARYUSER/
 
 service httpd restart

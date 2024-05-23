@@ -72,13 +72,14 @@ cat << EOF > /etc/httpd/conf.d/$user.conf
 </VirtualHost>                         
 EOF
 
-echo "$user\tIN\tCNAME\tsrvlinux.g2" >> /var/named/srvlinux.forward
+echo -e "$user\tIN\tCNAME\tsrvlinux.g2" >> /var/named/srvlinux.forward
 
 # Mettez en place des permissions
 echo -e "- Mise en place des permissions ...\n"
 chown $user:$user /srv/web/$user/index.html
 chmod 644 /srv/web/$user/index.html
 restorecon -Rv /srv
+sudo ln -s /usr/share/phpMyAdmin/ /srv/web/$user/
 
 # Redémarrage des services nécessaires
 echo -e "- Redémarrage des services ...\n"
