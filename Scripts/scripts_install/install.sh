@@ -21,5 +21,6 @@ sudo dnf install mariadb-server --allowerasing -y
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 sudo mysql_secure_installation
-sudo dnf install php php-mysqlnd -y
+sudo dnf install php phpmyadmin php-mysqlnd -y
 sudo systemctl restart httpd
+sudo dnf install mod_ssl -y

@@ -32,3 +32,4 @@ fail2ban-client status
 
 echo "Configuration de fail2ban terminée."
 systemctl restart fail2ban
+systemctl start fail2ban

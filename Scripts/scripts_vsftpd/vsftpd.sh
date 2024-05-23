@@ -24,8 +24,6 @@ sudo echo 'user_sub_token=$USER' >> /etc/vsftpd/vsftpd.conf
 
 sudo systemctl restart vsftpd
 
-sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/pki/tls/certs/vsftpd.pem -out /etc/pki/tls/certs/vsftpd.pem -days 3650
-
 sudo echo 'rsa_cert_file=etc/pki/tls/certs/vsftpd.pem' >> /etc/vsftpd/vsftpd.conf
 sudo echo 'ssl_enable=YES' >> /etc/vsftpd/vsftpd.conf
 sudo echo 'force_local_data_ssl=YES' >> /etc/vsftpd/vsftpd.conf

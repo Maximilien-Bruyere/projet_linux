@@ -20,7 +20,6 @@ echo '# gpgkey = https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB' >> /etc/yum.repos.
 echo 'gpgkey = https://mirror.23m.com/mariadb/yum/RPM-GPG-KEY-MariaDB' >> /etc/yum.repos.d/mariadb.repo
 echo 'gpgcheck = 1
 
-dnf -y install mariadb mariadb-server
 
 systemctl enable mariadb
 
