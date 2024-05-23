@@ -45,16 +45,88 @@ sed -i '110c\    group = postfix \n' /etc/dovecot/conf.d/10-master.conf
 sed -i '111c\  }' /etc/dovecot/conf.d/10-master.conf
 sed -i '8c \ssl = yes' /etc/dovecot/conf.d/10-ssl.conf
 
+echo "Installation de Php"
+echo "-------------------------"
+echo ""
+
+# installation de php
+
 dnf -y install php 
 
 systemctl restart httpd
 systemctl status php-fpm
 
+# création d'une page de test php
+
 echo '<?php phpinfo(); ?>' > /srv/web/info.php
+
+echo "Installation de mariadb"
+echo "-------------------------"
+echo ""
+
+# installation de mariadb
 
 dnf -y install mariadb-server
 
-mysql_secure_installation
+# https://www.server-world.info/en/note?os=AlmaLinux_9&p=mariadb&f=1 (pout les tests )
+
+# creation de la base de donnée pour roundcube
+mysql -u root -p
+
+CREATE DATABASE roundcubemail DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON roundcubemail.* TO 'roundcubeuser'@'localhost' IDENTIFIED BY 'mot_de_passe_sécurisé';
+FLUSH PRIVILEGES;
+EXIT;
+
+# installation de roundcube 
+
+wget https://github.com/roundcube/roundcubemail/releases/download/1.6.0/roundcubemail-1.6.0-complete.tar.gz
+tar -xvf roundcubemail-1.6.0-complete.tar.gz
+sudo mv roundcubemail-1.6.0 /var/www/html/roundcubemail
+cd /var/www/html/roundcubemail
+sudo composer install --no-dev
+
+sudo nano /etc/httpd/conf.d/roundcubemail.conf
+
+Alias /roundcubemail /var/www/html/roundcubemail 
+
+<Directory /var/www/html/roundcubemail>
+    Options -Indexes
+    AllowOverride All
+    Require all granted
+</Directory>
+
+
+sudo systemctl restart httpd
+
+
+# mysql 
+# create database roundcubemail;
+# grant all privileges on roundcubemail.* to roundcube@'localhost' identified by 'password';
+# flush privileges;
+# exit
+# 
+# 
+# echo "Installation de roundcube"
+# echo "-------------------------"
+# echo ""
+# 
+# # installation de roundcube
+# 
+# dnf --enablerepo=epel -y install roundcubemail php-mysqlnd
+# 
+# 
+# cd /usr/share/roundcubemail/SQL
+# mysql -u roundcube -D roundcubemail -p < mysql.initial.sql
+# 
+# cd 
+# cp -p /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
+# 
+# 
+# vi /etc/roundcubemail/config.inc.php
+# 
+
+
 
 
 
