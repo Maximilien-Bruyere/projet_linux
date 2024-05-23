@@ -26,4 +26,4 @@ sudo bash -c "(crontab -l 2>/dev/null; echo '0 12 3 * * freshclam') | crontab -"
 echo "Configuration de ClamAV terminée."
 echo "-------------------------"
 echo ""
- 
+ <

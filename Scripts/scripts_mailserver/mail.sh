@@ -82,11 +82,11 @@ EXIT;
 
 wget https://github.com/roundcube/roundcubemail/releases/download/1.6.0/roundcubemail-1.6.0-complete.tar.gz
 tar -xvf roundcubemail-1.6.0-complete.tar.gz
-sudo mv roundcubemail-1.6.0 /srv/web/roundcubemail
-cd /var/www/html/roundcubemail
-sudo composer install --no-dev
+mv roundcubemail-1.6.0 /srv/web/roundcubemail
+cd /srv/web/roundcubemail
+# composer install --no-dev
 
-sudo nano /etc/httpd/conf.d/roundcubemail.conf
+nano /etc/httpd/conf.d/roundcubemail.conf
 
 Alias /roundcubemail /srv/web/roundcubemail 
 
@@ -97,37 +97,4 @@ Alias /roundcubemail /srv/web/roundcubemail
 </Directory>
 
 
-sudo systemctl restart httpd
-
-
-# mysql 
-# create database roundcubemail;
-# grant all privileges on roundcubemail.* to roundcube@'localhost' identified by 'password';
-# flush privileges;
-# exit
-# 
-# 
-# echo "Installation de roundcube"
-# echo "-------------------------"
-# echo ""
-# 
-# # installation de roundcube
-# 
-# dnf --enablerepo=epel -y install roundcubemail php-mysqlnd
-# 
-# 
-# cd /usr/share/roundcubemail/SQL
-# mysql -u roundcube -D roundcubemail -p < mysql.initial.sql
-# 
-# cd 
-# cp -p /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
-# 
-# 
-# vi /etc/roundcubemail/config.inc.php
-# 
-
-
-
-
-
-
+systemctl restart httpd
