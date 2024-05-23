@@ -84,6 +84,12 @@ iptables -A INPUT -p tcp --sport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 143 -j ACCEPT
 
+# connexion pour maridaDB
+iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -p tcp --sport 3306 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 3306 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 3306 -j ACCEPT
+
 # Connexions déjà établies 
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
