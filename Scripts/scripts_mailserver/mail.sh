@@ -74,7 +74,7 @@ dnf -y install mariadb-server
 mysql -u root -p
 
 CREATE DATABASE roundcubemail DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON roundcubemail.* TO 'roundcubeuser'@'localhost' IDENTIFIED BY 'mot_de_passe_sécurisé';
+GRANT ALL PRIVILEGES ON roundcubemail.* TO 'roundcubeuser'@'localhost' IDENTIFIED BY 'AdminG2*';
 FLUSH PRIVILEGES;
 EXIT;
 
