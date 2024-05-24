@@ -1,28 +1,11 @@
 #!/bin/bash
+echo -e "\nConfiguration de MySQL"
+echo -e "----------------------\n"
 
-# Fichier de configuration créé dans le but d'automatiser la mise en place de MySQL
+sudo systemctl enable mysqld
+sudo systemctl start mysqld
 
-echo "Installation de MySQL"
-echo "-------------------------"
-echo ""
+mysql -e "SHOW DATABASES;" -p
 
-# Installation de MySQL
-
-dnf -y install mysql-server mysql
-systemctl enable mysqld.service
-systemctl start mysqld.service
-
-
-# Configuration de MySQL
-
-# mysql_secure_installation
-# Test123*
-# n
-# y
-# y
-# n
-# y
-
-
-# mysql -e "SHOW DATABASES;" -p
-
+echo -e "\nConfiguration de MySQL terminée"
+echo -e "-------------------------------\n"

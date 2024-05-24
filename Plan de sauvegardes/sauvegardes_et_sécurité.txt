@@ -13,9 +13,9 @@ AlmaLinux 9.2 (fiabilité, gratuit, compatibilité RedHat)
 Serveur AlmaLinux :
 -------------------
 
-25Go + stockage RAID 25Go
+50Go + stockage RAID 50Go
 Root désactivé
-Mdp pour tout : "yyyyyy" (oui je sais, c'est très sécurisé)
+Mdp pour tout : "AdminG2*" (oui je sais, c'est très sécurisé)
 profil sécurisé : ANSSI-BP-028 (minimal)
 
 Logiciels pré-installés 
@@ -31,7 +31,7 @@ Partitions
 
 1. "/" -> dossier racine : 10Go
 
-Système de fichiers : ext4
+Système de fichiers : xfs
 Type de périphérique : RAID -> RAID1
 Partition chiffrée -> Luks2 (standard)
 Options de montage :
@@ -40,7 +40,7 @@ Options de montage :
 
 ---
 
-2. "/home" -> dossier utilisateurs : 2Go
+2. "/home" -> dossier utilisateurs : 3Go
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -52,7 +52,7 @@ Options de montage :
 
 ---
 
-3. "/boot" : 1024Mo
+3. "/boot" : 2Gio
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -65,7 +65,7 @@ Options de montage :
 
 ---
 
-4. "/srv" -> données spécifiques des services (partition nécessaire) : 2Go
+4. "/srv" -> données spécifiques des services (partition nécessaire) : 7.5Go
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
@@ -97,7 +97,7 @@ Partition non-chiffrée
 
 ---
 
-7. "Swap" -> La partition de swap est utilisée comme espace d’échange lorsque la mémoire RAM du système est pleine : 2Go
+7. "Swap" -> La partition de swap est utilisée comme espace d’échange lorsque la mémoire RAM du système est pleine : 4Go
 
 Système de fichiers : swap
 Type de périphérique : LVM (Logical Volume Manager)
@@ -107,7 +107,7 @@ Options de montage :
 
 ---
 
-8. "/tmp" : 200Mo
+8. "/tmp" : 1Go
 Système de fichiers : ext4
 Type de périphérique : LVM (Logical Volume Manager)
 Partition non-chiffrée
@@ -119,9 +119,17 @@ Options de montage :
 
 ---
 
-Remarque :
-Les tailles de stockage données plus haut sont minimales, vous pouvez mettre + en fonction de ce vous avez.
+9. "/backup" -> contiendra les backups du serveur principal : 12Go
 
+Système de fichiers : xfs
+Type de périphérique : LVM
+Partition chiffrée -> Luks2 (standard)
+Options de montage :
+	defaults
+	nodev
+	nosuid
+
+---
 
 Options de montage utilisées
 ----------------------------
@@ -129,25 +137,41 @@ Options de montage utilisées
 2. nosuid : empêche l'exécution de fichiers avec des privilèges d'utilisateur (setuid) ou de groupe élevés (setgid).
 3. noexec : empêche l'exécution de tout fichier binaire sur la partition.
 
-
 VG (Volume Group)
 -----------------
 
 1 VG pour le stockage : reste du stockage disponible 
 
+Remarques :
+-----------
 
-Ajout des partitions "/home", "/var", "/srv" en type de périphérique LVM (Logical Volume Manager) pour lier redondance (RAID) et flexibilité (LVM)
-----------------------------------------------------------------
+Après avoir mis en place les partitions, nous devons obligatoirement faire les 
+commandes suivantes :
+	- sudo dnf -y update
+	- sudo dnf -y upgrade 
+
+Lors de l'ajout du scripts.zip dans /ect, il faut impérativement exécuter la commande ci-dessous :
+- sudo find /etc/Scripts -type f -exec dos2unix {} \;
 
 
+Plan de sauvegarde 
+------------------
 
-
-PLAN DE SAUVEGARDE
-
-Afin d'assurer la sauvegarde, l'intégrité et la confidentialité de nos données nous avons mis un plan de sauvegardes. 
-En plus du raid 1 nous allons faire des backups jour à 13h. Tout sauvegardé sur le serveur de backup suivante la nomenclature suivante "DD-MM-YYYY_Backup_serveur_linux"
-Sur ce serveur elles seront testé afin de s'assurer de leur bon fonctionnement. 
-
-Tout seras bien entendu chiffré avec l'algorhithme Luks2 afin d'assurer la confidentialité des données. 
-Nous sauvegarderons le /srv, /home, /etc, /var. 
-
+1. Que faut-il sauvegarder ?  
+	/etc /srv /var /home 
+2. Avec quelle fréquence ? 
+	Tout les jours a 13h
+3. Combien de temps conservera-t-on les sauvegardes, en combien d'exemplaires ?
+	Une semaine 
+4. A quel endroit seront stockées les sauvegardes et l'historique des sauvegardes ?
+	/backup mais on aurait voulu faire un serveur de backup
+5. Quels sont les besoins, en capacité, du support de sauvegarde ?
+	50Go (serveur de backup)
+6. Combien de temps, au plus, doit durer la sauvegarde ?
+	10 min 
+7. Combien de temps prévoit-on pour restaurer un fichier, un système de fichiers, est-ce raisonnable ?
+	1h et oui
+8. La sauvegarde doit-elle être automatique ou manuelle ?
+	automatique via le crontab
+9. Quelle est la méthode de sauvegarde la plus appropriée ?
+	Différentielle

@@ -1,17 +1,14 @@
 #!/bin/bash
-# Fichier de configuration créé dans le but d'automatiser
-# la mise en place d'un serveur web Apache.
+echo -e "\nConfiguration de HTTPD"
+echo -e "----------------------\n"
 
 source ../config.cfg
-
-# Configuration du serveur web
 systemctl start httpd
 systemctl enable httpd
 
-# Chemin vers votre fichier httpd.conf
 HTTPD_CONF="/etc/httpd/conf/httpd.conf"
 
-# Sauvegarde 
+# Copie du fichier de base
 cp $HTTPD_CONF $HTTPD_CONF.bak
 
 # Modification du fichier httpd.conf
@@ -42,35 +39,6 @@ cat << EOF > /etc/httpd/conf.d/main.conf
 ServerTokens Prod                       
 EOF
 
-# Création du VirtualHost avec SSL - Page utilisateur
-cat << EOF > /etc/httpd/conf.d/$PRIMARYUSER.conf
-<VirtualHost *:80>
-    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
-    Redirect permanent / https://$PRIMARYUSER.$SERVERNAME.$DOMAIN/
-</VirtualHost>
-<VirtualHost _default_:443>
-    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
-    DocumentRoot /srv/web/$PRIMARYUSER
-    SSLEngine On
-    SSLCertificateFile /etc/ssl/certs/httpd-selfsigned.crt
-    SSLCertificateKeyFile /etc/ssl/certs/httpd-selfsigned.key
-</VirtualHost>                         
-EOF
-
-# Création de la page utilisateur
-cat << EOF > /srv/web/$PRIMARYUSER/index.php
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>$PRIMARYUSER Page</title>
-    </head>
-    <body>
-        <h1>Bienvenue sur la page de $PRIMARYUSER</h1>
-    </body>
-</html>
-EOF
-
 # Création de la page principale
 cat << EOF > /srv/web/index.html
 <!DOCTYPE html>
@@ -85,8 +53,40 @@ cat << EOF > /srv/web/index.html
 </html>
 EOF
 
+# Création du VirtualHost avec SSL du premier utilisateur (admin)
+cat << EOF > /etc/httpd/conf.d/$PRIMARYUSER.conf
+<VirtualHost *:80>
+    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
+    Redirect permanent / https://$PRIMARYUSER.$SERVERNAME.$DOMAIN/
+</VirtualHost>
+<VirtualHost _default_:443>
+    ServerName $PRIMARYUSER.$SERVERNAME.$DOMAIN
+    DocumentRoot /srv/web/$PRIMARYUSER
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/httpd-selfsigned.crt
+    SSLCertificateKeyFile /etc/ssl/certs/httpd-selfsigned.key
+</VirtualHost>                         
+EOF
+
+# Création de la page du premier utilisateur (admin)
+cat << EOF > /srv/web/$PRIMARYUSER/index.php
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>$PRIMARYUSER Page</title>
+    </head>
+    <body>
+        <h1>Bienvenue sur la page de $PRIMARYUSER</h1>
+    </body>
+</html>
+EOF
+
+# SELINUX
 semanage fcontext -a -e /var/www /srv/web
 restorecon -Rv /srv
 
-# Test de la configuration
 apachectl configtest
+
+echo -e "\nConfiguration de HTTPD terminée"
+echo -e "-------------------------------\n"

@@ -1,14 +1,8 @@
 #!/bin/bash 
-
-# Fichier de configuration créé dans le but d"automatiser
-# l"installation de vsftpd sur un serveur.
+echo -e "\nConfiguration de VSFTPD"
+echo -e "-----------------------\n"
 
 source ../config.cfg
-
-echo ""
-echo "Configuration de VSFTPD"
-echo "------------------------"
-echo ""
 
 sudo systemctl start vsftpd
 sudo systemctl enable vsftpd
@@ -45,3 +39,6 @@ sudo setsebool -P ftpd_full_access on
 sudo mkdir -p /srv/web/$PRIMARYUSER
 sudo chown $PRIMARYUSER:$PRIMARYUSER /srv/web/$PRIMARYUSER
 sudo chmod 755 /srv/web/$PRIMARYUSER
+
+echo -e "\nConfiguration de VSFTPD terminée"
+echo -e "--------------------------------\n"

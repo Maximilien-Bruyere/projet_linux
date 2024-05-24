@@ -1,4 +1,7 @@
 #!/bin/bash
+echo -e "\nConfiguration du NFS"
+echo -e "--------------------\n"
+
 source ../config.cfg
 
 # Création d'un utilisateur NFS
@@ -30,4 +33,9 @@ sudo echo "/srv/nfs/private $IPCLIENT(rw,async,all_squash,secure,no_subtree_chec
 # Activation du serveur NFS au démarrage
 sudo systemctl enable nfs-server
 sudo systemctl start nfs-server
+
+echo -e "\nConfiguration du NFS terminée"
+echo -e "-----------------------------\n"
+
+
 

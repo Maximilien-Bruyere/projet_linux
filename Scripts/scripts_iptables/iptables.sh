@@ -1,4 +1,6 @@
 #!/bin/bash
+echo -e "\nConfiguration IPTABLES"
+echo -e "----------------------\n"
 
 # Configuration et désactivation 
 sudo systemctl disable firewalld.service
@@ -48,7 +50,7 @@ iptables -A INPUT -p udp --dport 53 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
 iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
 
-# Trafic entrant pour Chrony 
+# Trafic entrant pour Chrony (123)
 iptables -A INPUT -p udp --dport 123 -j ACCEPT
 iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
 
@@ -66,30 +68,31 @@ iptables -A OUTPUT -p tcp -m tcp --sport 1024:65535 --dport 20:65535 -m conntrac
 # Trafic entrant pour ClamAV (3310)
 iptables -A INPUT -p tcp --dport 3310 -j ACCEPT
 
-# Connexion pour SMTP
+# Connexion pour SMTP (25)
 iptables -A INPUT -p tcp --dport 25 -j ACCEPT
 iptables -A INPUT -p tcp --sport 25 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 25 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 25 -j ACCEPT
 
-# Connexion pour POP
+# Connexion pour POP (110)
 iptables -A INPUT -p tcp --dport 110 -j ACCEPT
 iptables -A INPUT -p tcp --sport 110 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 110 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 110 -j ACCEPT
 
-# Connexion pour IMAP
+# Connexion pour IMAP (143)
 iptables -A INPUT -p tcp --dport 143 -j ACCEPT
 iptables -A INPUT -p tcp --sport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 143 -j ACCEPT
 
+# Connexion pour ROUNDCUBEMAIL (587)
 iptables -A INPUT -p tcp --dport 587 -j ACCEPT
 iptables -A INPUT -p tcp --sport 587 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 587 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 587 -j ACCEPT
 
-# connexion pour maridaDB
+# Connexion pour MariaDB (3306)
 iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 iptables -A INPUT -p tcp --sport 3306 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 3306 -j ACCEPT
@@ -106,3 +109,6 @@ iptables -I INPUT 1 -i lo -j ACCEPT
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
 iptables -P OUTPUT DROP
+
+echo -e "\nConfiguration IPTABLES terminée"
+echo -e "-------------------------------\n"

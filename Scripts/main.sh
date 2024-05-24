@@ -51,16 +51,19 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/httpd
 echo -e "\nConfiguration SSL-TLS | Terminée\n"
 echo "--------------------------------" 
 
-# Configuration du service HTTPD / PHPMYADMIN - PAS GOOD
+# Configuration du service HTTPD / PHPMYADMIN - GOOD
 cd /etc/Scripts/scripts_httpd
 source httpd.sh
 source phpmyadmin.sh
+source mysql.sh
+source mariadb.sh
+source mail.sh
 
 # Configuration du service ClamAV - GOOD
 cd /etc/Scripts/scripts_clamav
 source clamav.sh
 
-# Configuration du service Fail2Ban - GOOD (pb systemctl start fail2Ban lors du lancement du script)
+# Configuration du service Fail2Ban - GOOD 
 cd /etc/Scripts/scripts_fail2ban
 source fail2ban.sh
 

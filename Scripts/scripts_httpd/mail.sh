@@ -1,13 +1,6 @@
-
 #!/bin/bash
-# Fichier de configuration créé dans le but d'automatiser la mise en place d'un serveur mail
-#
-echo "Installation de postfix"
-echo "-------------------------"
-echo ""
-
-dnf -y install postfix
-
+echo -e "\nConfiguration de POSTFIX"
+echo -e "------------------------\n"
 
 sed -i '95c\myhostname = mail.srvlinux.g2' /etc/postfix/main.cf
 sed -i '102c\mydomain = srvlinux.g2' /etc/postfix/main.cf
@@ -28,11 +21,13 @@ echo 'smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetwork
 
 systemctl enable --now postfix
 
-echo 'Installation de dovecot'
-echo "-------------------------"
-echo ""
-
-dnf -y install dovecot
+echo -e "\nConfiguration de Postfix POSTFIX"
+echo -e "---------------------------------\n"
+#
+#
+#
+echo -e "\nConfiguration de DOVECOT"
+echo -e "------------------------\n"
 
 sed -i '30c\listen = *' /etc/dovecot/dovecot.conf
 sed -i '10c\disable_plaintext_auth = no' /etc/dovecot/conf.d/10-auth.conf
@@ -45,32 +40,30 @@ sed -i '110c\    group = postfix \n' /etc/dovecot/conf.d/10-master.conf
 sed -i '111c\  }' /etc/dovecot/conf.d/10-master.conf
 sed -i '8c \ssl = yes' /etc/dovecot/conf.d/10-ssl.conf
 
-echo "Installation de Php"
-echo "-------------------------"
-echo ""
-
-# installation de php
-
-dnf -y install php 
+echo -e "\nConfiguration de DOVECOT terminée"
+echo -e "---------------------------------\n"
+#
+#
+#
+echo -e "\nConfiguration de PHP"
+echo -e "--------------------\n"
 
 systemctl restart httpd
 systemctl status php-fpm
 
-# création d'une page de test php
+echo '<?php phpinfo(); ?>' > /srv/web/info.php 
 
-echo '<?php phpinfo(); ?>' > /srv/web/info.php
+echo -e "\nConfiguration de PHP terminée"
+echo -e "-----------------------------\n"
+#
+#
+#
+echo -e "\nConfiguration de MARIADB"
+echo -e "------------------------\n"
 
-echo "Installation de mariadb"
-echo "-------------------------"
-echo ""
+# https://www.server-world.info/en/note?os=AlmaLinux_9&p=mariadb&f=1
 
-# installation de mariadb
-
-dnf -y install mariadb-server
-
-# https://www.server-world.info/en/note?os=AlmaLinux_9&p=mariadb&f=1 (pout les tests )
-
-# creation de la base de donnée pour roundcube
+# Création de la base de données pour ROUNDCUBE
 mysql -u root -p
 
 CREATE DATABASE roundcubemail DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -78,13 +71,18 @@ GRANT ALL PRIVILEGES ON roundcubemail.* TO 'roundcubeuser'@'localhost' IDENTIFIE
 FLUSH PRIVILEGES;
 EXIT;
 
-# installation de roundcube 
+echo -e "\nConfiguration de MARIADB terminée"
+echo -e "---------------------------------\n"
+#
+#
+#
+echo -e "\nConfiguration de ROUNDCUBEMAIL"
+echo -e "------------------------------\n"
 
 wget https://github.com/roundcube/roundcubemail/releases/download/1.6.0/roundcubemail-1.6.0-complete.tar.gz
 tar -xvf roundcubemail-1.6.0-complete.tar.gz
 mv roundcubemail-1.6.0 /srv/web/roundcubemail
 cd /srv/web/roundcubemail
-# composer install --no-dev
 
 nano /etc/httpd/conf.d/roundcubemail.conf
 
@@ -96,10 +94,12 @@ Alias /roundcubemail /srv/web/roundcubemail
     Require all granted
 </Directory>
 
-
 systemctl restart httpd
-INSERT INTO users (username, mail_host, created, password) VALUES ('thib@srvlinux.g2', 'localhost', NOW(), '$2y$10$vyRSB/DsYgDLJXcSkBt.6ehuQoPE3xAUjkUHhtEzjYCTgUBKKf59q');
 
 INSERT INTO users (username, mail_host, created, password) VALUES ('thib@srvlinux.g2', 'localhost', NOW(), '$2y$10$vyRSB/DsYgDLJXcSkBt.6ehuQoPE3xAUjkUHhtEzjYCTgUBKKf59q');
-
+INSERT INTO users (username, mail_host, created, password) VALUES ('thib@srvlinux.g2', 'localhost', NOW(), '$2y$10$vyRSB/DsYgDLJXcSkBt.6ehuQoPE3xAUjkUHhtEzjYCTgUBKKf59q');
 echo password_hash('yyyyyy', PASSWORD_BCRYPT);
+
+echo -e "\nConfiguration de ROUNDCUBEMAIL terminée"
+echo -e "---------------------------------------\n"
+

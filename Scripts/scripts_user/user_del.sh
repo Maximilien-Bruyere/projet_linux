@@ -1,4 +1,5 @@
 #!/bin/bash
+# /sbin/user_del
 
 # Vérification des permissions d'exécution
 if [ "$(id -u)" != "0" ]; then

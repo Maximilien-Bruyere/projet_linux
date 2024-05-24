@@ -1,16 +1,7 @@
 #!/bin/bash 
+echo -e "\nConfiguration de RSYNC"
+echo -e "----------------------\n"
 
-# Fichier de configuration créé dans le but d'automatiser la mise en place de rsync
-
-echo "Installation de rsync"
-echo "-------------------------"
-echo ""
-
-# Installation de rsync
-
-dnf -y install rsync
-
-# Configuration de rsync
 
 touch /sbin/dailybackup.sh
 echo '#!/bin/bash' > /sbin/dailybackup.sh
@@ -29,9 +20,8 @@ echo 'rsync -avz --delete /srv/ /backup/etc/"$(date +%Y-%m-%d)_srv"' >> /sbin/da
 echo 'rsync -avz --delete /home/ /backup/home/"$(date +%Y-%m-%d)_home"' >> /sbin/dailybackup.sh
 chmod +x /sbin/dailybackup.sh
 
-# Création de la tâche cron
-
+# Création de la tâche journalière
 bash -c "(crontab -l 2>/dev/null; echo '0 12 * * * /sbin/dailybackup.sh') | crontab -"
-echo "Configuration de rsync terminée."
-echo "-------------------------"
-echo ""
+
+echo -e "\nConfiguration de RSYNC terminée"
+echo -e "-------------------------------\n"

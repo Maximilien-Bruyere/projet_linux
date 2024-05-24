@@ -1,14 +1,19 @@
 #!/bin/bash
+echo -e "\nConfiguration du NAMESERVER"
+echo -e "---------------------------\n"
 
 source ../config.cfg
 
-# Utiliser hostnamectl pour changer le nom d'hôte
-sudo hostnamectl set-hostname $SERVERNAME
+# Changement du nom d'hôte
+hostnamectl set-hostname $SERVERNAME
 
-# Modifier le fichier /etc/hostname
-echo $SERVERNAME | sudo tee /etc/hostname
+# Modification du fichier /etc/hostname
+echo $SERVERNAME | tee /etc/hostname
 
-# Modifier le fichier /etc/hosts
-sudo sed -i "s/$(hostname)/$SERVERNAME/g" /etc/hosts
+# Modification du fichier /etc/hosts
+sed -i "s/$(hostname)/$SERVERNAME/g" /etc/hosts
 
-sudo shutdown -r now
+echo -e "\nRedémarrage en cours"
+echo -e "--------------------\n"
+
+shutdown -r now

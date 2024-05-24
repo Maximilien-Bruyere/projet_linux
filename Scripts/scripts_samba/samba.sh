@@ -1,10 +1,8 @@
 #!/bin/bash
+echo -e "\nConfiguration de SAMBA"
+echo -e "----------------------\n"
 
 source ../config.cfg
-
-# Configuration du service SAMBA
-echo -e "------------------------------\n"
-echo -e "Configuration du service SAMBA\n"
 
 # Configuration globale
 echo "- Configuration globale ..."
@@ -36,6 +34,7 @@ sudo echo -e "\tforce create mode = 777" >> /etc/samba/smb.conf
 sudo echo -e "\tforce directory mode = 777" >> /etc/samba/smb.conf
 sudo echo "#" >> /etc/samba/smb.conf
 
+# Mis en place du dossier privé pour l'utilisateur principal
 sudo echo "[$PRIMARYUSER]" >> /etc/samba/smb.conf
 sudo echo -e '\tpath = /srv/web/$USER' >> /etc/samba/smb.conf
 sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
@@ -50,5 +49,8 @@ sudo setsebool -P samba_enable_home_dirs on
 sudo restorecon -R /srv/samba/public
 sudo restorecon -R /srv/web/$PRIMARYUSER
 
-echo "- Redémarrage ..."
+echo "- Redémarrage du service ..."
 sudo systemctl enable --now smb
+
+echo -e "\nConfiguration de SAMBA terminée"
+echo -e "-------------------------------\n"

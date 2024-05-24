@@ -1,11 +1,12 @@
 #!/bin/bash
-source ../config.cfg
+echo -e "\nConfiguration de NAMED"
+echo -e "----------------------\n"
 
-# 1) Démarrer et activer named
+source ../config.cfg
 systemctl start named
 systemctl enable named
 
-# 2) Configuration de base de /etc/named.conf 
+# Configuration du named.conf
 cat << EOF > /etc/named.conf
 options {
         listen-on port 53 { $IPADD; }; 
@@ -64,7 +65,7 @@ zone "1.168.192.in-addr.arpa" IN {
 };
 EOF
 
-# 3) Configuration de base des fichiers de zone
+# Configuration des fichiers de zone
 cat << EOF > /var/named/$SERVERNAME.forward
 \$TTL 86400
 @   IN  SOA     $DOMAIN. root.$SERVERNAME.$DOMAIN. (
@@ -80,7 +81,7 @@ cat << EOF > /var/named/$SERVERNAME.forward
 $SERVERNAME.$DOMAIN     IN  A       $IPADD
 EOF
 
-sudo cat << EOF > /var/named/$SERVERNAME.reversed
+cat << EOF > /var/named/$SERVERNAME.reversed
 \$TTL 86400
 @   IN  SOA    $DOMAIN. root.$SERVERNAME.$DOMAIN. (
         2023022101  ;Serial
@@ -94,25 +95,22 @@ sudo cat << EOF > /var/named/$SERVERNAME.reversed
 $LAST8BITS      IN  PTR     $SERVERNAME.$DOMAIN.
 EOF
 
-# définir bind juste pour l'IPv4
-sudo echo 'OPTIONS="-4"' >> /etc/sysconfig/named
+# Utilisation de bind juste pour l'IPv4
+echo 'OPTIONS="-4"' >> /etc/sysconfig/named
 
-# changer les permissions des fichiers créés
-sudo chown named:named /var/named/$SERVERNAME.forward
-sudo chmod 640 /var/named/$SERVERNAME.forward
-sudo chown named:named /var/named/$SERVERNAME.reversed
-sudo chmod 640 /var/named/$SERVERNAME.reversed
+chown named:named /var/named/$SERVERNAME.forward
+chmod 640 /var/named/$SERVERNAME.forward
+chown named:named /var/named/$SERVERNAME.reversed
+chmod 640 /var/named/$SERVERNAME.reversed
 
-# Recharger le cache DNS chaque heure
-sudo bash -c "(crontab -l 2>/dev/null; echo '0 * * * *  rndc dumpdb -cache') | crontab -"
-sudo bash -c "(crontab -l 2>/dev/null; echo '* 17 * * *  rndc flush') | crontab -"
+# Rechargement du cache DNS chaque heure
+bash -c "(crontab -l 2>/dev/null; echo '0 * * * *  rndc dumpdb -cache') | crontab -"
+bash -c "(crontab -l 2>/dev/null; echo '* 17 * * *  rndc flush') | crontab -"
 
-# 4) Recharger named 
-sudo systemctl restart named 
+systemctl restart named 
 
-# 5) Changer les serveurs DNS par notre serveur DNS
-sudo nmcli con mod $INTERFACE ipv4.dns "$IPADD"
+# Changement du fichier /etc/resolv.conf 
+echo "nameserver $IPADD" > /etc/resolv.conf
 
-# 6) Changer le fichier /etc/resolv.conf 
-sudo echo "nameserver $IPADD" > /etc/resolv.conf
-
+echo -e "\nConfiguration de NAMED terminée"
+echo -e "-------------------------------\n"

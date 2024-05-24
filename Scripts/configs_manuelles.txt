@@ -1,4 +1,6 @@
-Dans ce fichier se trouvera toutes les configs manuelles qu'on devra réaliser 
+Dans ce fichier se trouvera toutes les configs manuelles qu'on devra réaliser
+Le majeure partie de ce fichier, est une prise de notes faites à partie de 
+https://www.server-world.info/en/note?os=AlmaLinux_9&p=ssh&f=1
 -----------------------------------------------------------------------------
 
 #######
@@ -87,9 +89,12 @@ Connectez vous dans votre shell -> ssh user@ip_or_domain
 # QUOTAS #
 ##########
 
-################
-# BACKUP RSYNC #
-################
+--> changement des options de montage dans /etc/fstab
+quotaon 
+quotacheck
+setquota -u admin 2500 3000 0 0 /dev/mapper/luks-6c2f1231-b5a6-451a-ba5b-a46e3496e9f8
+setquota -u admin 2500 3000 0 0 /dev/mapper/luks-8376455c-27b4-4392-b166-3b0466afda33
+
 
 
 
