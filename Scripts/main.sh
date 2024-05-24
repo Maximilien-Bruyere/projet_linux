@@ -57,7 +57,7 @@ source httpd.sh
 source phpmyadmin.sh
 source mysql.sh
 source mariadb.sh
-source mail.sh
+source mail.sh 
 
 # Configuration du service ClamAV - GOOD
 cd /etc/Scripts/scripts_clamav

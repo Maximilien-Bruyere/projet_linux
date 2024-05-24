@@ -26,7 +26,7 @@ mysql -e "FLUSH PRIVILEGES;"
 
 # Configuration de l'accès Samba pour l'utilisateur
 echo -e "\n- Configuration de l'accès Samba ...\n"
-sudo smbpasswd -a $user
+smbpasswd -a $user
 systemctl restart named 
 systemctl restart httpd
 

@@ -38,13 +38,13 @@ mysql -e "FLUSH PRIVILEGES;"
 
 # Configuration de l'accès Samba pour l'utilisateur
 echo -e "\n- Configuration de l'accès Samba ...\n"
-sudo smbpasswd -a $user
-sudo echo "[$user]" >> /etc/samba/smb.conf
-sudo echo -e "\tpath = /srv/web/$user" >> /etc/samba/smb.conf
-sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
-sudo echo -e "\tvalid users = $user" >> /etc/samba/smb.conf
-sudo restorecon -R /srv/web/$user
+smbpasswd -a $user
+echo "[$user]" >> /etc/samba/smb.conf
+echo -e "\tpath = /srv/web/$user" >> /etc/samba/smb.conf
+echo -e "\twritable = yes" >> /etc/samba/smb.conf
+echo -e "\tguest ok = no" >> /etc/samba/smb.conf
+echo -e "\tvalid users = $user" >> /etc/samba/smb.conf
+restorecon -R /srv/web/$user
 
 # Création de la page utilisateur
 echo -e "\n- Création de la page utilisateur ...\n"
@@ -86,7 +86,7 @@ chown $user:$user /srv/web/$user/index.php
 chmod 644 /srv/web/$user/index.php
 restorecon -Rv /srv
 
-sudo ln -s /usr/share/phpMyAdmin/ /srv/web/$user/
+ln -s /usr/share/phpMyAdmin/ /srv/web/$user/
 
 # Redémarrage des services nécessaires
 echo -e "- Redémarrage des services ...\n"

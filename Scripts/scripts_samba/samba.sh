@@ -6,51 +6,51 @@ source ../config.cfg
 
 # Configuration globale
 echo "- Configuration globale ..."
-sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
-sudo touch /etc/samba/smb.conf
-sudo echo "[global]" >> /etc/samba/smb.conf
-sudo echo -e "\tworkgroup = WORKGROUP" >> /etc/samba/smb.conf
-sudo echo -e "\tserver string = Samba Server %v" >> /etc/samba/smb.conf
-sudo echo -e "\tnetbios name = srvlinux" >> /etc/samba/smb.conf
-sudo echo -e "\tsecurity = user" >> /etc/samba/smb.conf
-sudo echo -e "\tmap to guest = bad user" >> /etc/samba/smb.conf
-sudo echo -e "\tdns proxy = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tntlm auth = true" >> /etc/samba/smb.conf
-sudo echo -e "\thosts allow = $IPADD $IPCLIENT" >> /etc/samba/smb.conf
-sudo echo "#" >> /etc/samba/smb.conf
+mv /etc/samba/smb.conf /etc/samba/smb.conf.old
+touch /etc/samba/smb.conf
+echo "[global]" >> /etc/samba/smb.conf
+echo -e "\tworkgroup = WORKGROUP" >> /etc/samba/smb.conf
+echo -e "\tserver string = Samba Server %v" >> /etc/samba/smb.conf
+echo -e "\tnetbios name = srvlinux" >> /etc/samba/smb.conf
+echo -e "\tsecurity = user" >> /etc/samba/smb.conf
+echo -e "\tmap to guest = bad user" >> /etc/samba/smb.conf
+echo -e "\tdns proxy = yes" >> /etc/samba/smb.conf
+echo -e "\tntlm auth = true" >> /etc/samba/smb.conf
+echo -e "\thosts allow = $IPADD $IPCLIENT" >> /etc/samba/smb.conf
+echo "#" >> /etc/samba/smb.conf
 
 # Création du dossier public
 echo "- Configuration du partage public ..."
-sudo mkdir -p /srv/samba/public
-sudo chmod 777 /srv/samba/public
-sudo chown nobody:nobody /srv/samba/public
+mkdir -p /srv/samba/public
+chmod 777 /srv/samba/public
+chown nobody:nobody /srv/samba/public
 
-sudo echo "[public]" >> /etc/samba/smb.conf
-sudo echo -e "\tpath = /srv/samba/public" >> /etc/samba/smb.conf
-sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tguest ok = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tguest only = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tforce create mode = 777" >> /etc/samba/smb.conf
-sudo echo -e "\tforce directory mode = 777" >> /etc/samba/smb.conf
-sudo echo "#" >> /etc/samba/smb.conf
+echo "[public]" >> /etc/samba/smb.conf
+echo -e "\tpath = /srv/samba/public" >> /etc/samba/smb.conf
+echo -e "\twritable = yes" >> /etc/samba/smb.conf
+echo -e "\tguest ok = yes" >> /etc/samba/smb.conf
+echo -e "\tguest only = yes" >> /etc/samba/smb.conf
+echo -e "\tforce create mode = 777" >> /etc/samba/smb.conf
+echo -e "\tforce directory mode = 777" >> /etc/samba/smb.conf
+echo "#" >> /etc/samba/smb.conf
 
 # Mis en place du dossier privé pour l'utilisateur principal
-sudo echo "[$PRIMARYUSER]" >> /etc/samba/smb.conf
-sudo echo -e '\tpath = /srv/web/$USER' >> /etc/samba/smb.conf
-sudo echo -e "\twritable = yes" >> /etc/samba/smb.conf
-sudo echo -e "\tguest ok = no" >> /etc/samba/smb.conf
-sudo echo -e "\tvalid users = $PRIMARYUSER" >> /etc/samba/smb.conf
-sudo echo -e "\tinherit permissions = yes " >> /etc/samba/smb.conf
+echo "[$PRIMARYUSER]" >> /etc/samba/smb.conf
+echo -e '\tpath = /srv/web/$USER' >> /etc/samba/smb.conf
+echo -e "\twritable = yes" >> /etc/samba/smb.conf
+echo -e "\tguest ok = no" >> /etc/samba/smb.conf
+echo -e "\tvalid users = $PRIMARYUSER" >> /etc/samba/smb.conf
+echo -e "\tinherit permissions = yes " >> /etc/samba/smb.conf
 
-sudo smbpasswd -a $PRIMARYUSER
+smbpasswd -a $PRIMARYUSER
 
 # SELINUX 
-sudo setsebool -P samba_enable_home_dirs on
-sudo restorecon -R /srv/samba/public
-sudo restorecon -R /srv/web/$PRIMARYUSER
+setsebool -P samba_enable_home_dirs on
+restorecon -R /srv/samba/public
+restorecon -R /srv/web/$PRIMARYUSER
 
 echo "- Redémarrage du service ..."
-sudo systemctl enable --now smb
+systemctl enable --now smb
 
 echo -e "\nConfiguration de SAMBA terminée"
 echo -e "-------------------------------\n"
