@@ -1,0 +1,7 @@
+0 * * * *  rndc dumpdb -cache
+* 17 * * *  rndc flush
+30 12 * * * /usr/bin/clamscan -ri / >> /var/log/clamav/clamav-scan.log
+30 12 * * 3 freshclam
+0 0 * * * /sbin/quotacheck -avug
+0 13 * * * /sbin/dailybackup.sh
+

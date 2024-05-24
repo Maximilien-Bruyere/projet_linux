@@ -1,0 +1,2 @@
+/srv/nfs/public *(rw,async,root_squash,anonuid=65534,anongid=65534,secure,no_subtree_check)
+/srv/nfs/private 192.168.1.170(rw,async,all_squash,secure,no_subtree_check,anonuid=1015,anongid=1015)
