@@ -1,0 +1,42 @@
+NAME                                            MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINTS
+sda                                               8:0    0   50G  0 disk  
+├─sda1                                            8:1    0    2M  0 part  
+├─sda2                                            8:2    0   10G  0 part  
+│ └─md126                                         9:126  0   10G  0 raid1 
+│   └─luks-e5b0d331-9614-4f42-9505-76d4c9992f0a 253:1    0   10G  0 crypt /
+├─sda3                                            8:3    0  7,5G  0 part  
+│ └─md123                                         9:123  0  7,5G  0 raid1 
+│   └─luks-6c2f1231-b5a6-451a-ba5b-a46e3496e9f8 253:8    0  7,5G  0 crypt /srv
+├─sda4                                            8:4    0    1K  0 part  
+├─sda5                                            8:5    0    5G  0 part  
+│ └─md124                                         9:124  0    5G  0 raid1 
+│   └─luks-3c58df0a-aa92-4ac4-9636-ca20bc81d451 253:7    0    5G  0 crypt /var
+├─sda6                                            8:6    0    3G  0 part  
+│ └─md125                                         9:125  0    3G  0 raid1 
+│   └─luks-8376455c-27b4-4392-b166-3b0466afda33 253:5    0    3G  0 crypt /home
+├─sda7                                            8:7    0    2G  0 part  
+│ └─md127                                         9:127  0    2G  0 raid1 /boot
+└─sda8                                            8:8    0 22,5G  0 part  
+  ├─almalinuxVG-swap                            253:0    0    4G  0 lvm   
+  │ └─luks-0ea09c79-1d1c-48c3-b24a-b92985c132ad 253:2    0    4G  0 crypt [SWAP]
+  ├─almalinuxVG-backup                          253:3    0   12G  0 lvm   
+  │ └─luks-6d28add6-a17f-4b5b-9ab3-c46c43446687 253:6    0   12G  0 crypt /backup
+  └─almalinuxVG-tmp                             253:4    0    1G  0 lvm   /tmp
+sdb                                               8:16   0   50G  0 disk  
+├─sdb1                                            8:17   0   10G  0 part  
+│ └─md126                                         9:126  0   10G  0 raid1 
+│   └─luks-e5b0d331-9614-4f42-9505-76d4c9992f0a 253:1    0   10G  0 crypt /
+├─sdb2                                            8:18   0  7,5G  0 part  
+│ └─md123                                         9:123  0  7,5G  0 raid1 
+│   └─luks-6c2f1231-b5a6-451a-ba5b-a46e3496e9f8 253:8    0  7,5G  0 crypt /srv
+├─sdb3                                            8:19   0    5G  0 part  
+│ └─md124                                         9:124  0    5G  0 raid1 
+│   └─luks-3c58df0a-aa92-4ac4-9636-ca20bc81d451 253:7    0    5G  0 crypt /var
+├─sdb4                                            8:20   0    1K  0 part  
+├─sdb5                                            8:21   0    3G  0 part  
+│ └─md125                                         9:125  0    3G  0 raid1 
+│   └─luks-8376455c-27b4-4392-b166-3b0466afda33 253:5    0    3G  0 crypt /home
+├─sdb6                                            8:22   0    2G  0 part  
+│ └─md127                                         9:127  0    2G  0 raid1 /boot
+└─sdb7                                            8:23   0 22,5G  0 part  
+sr0   

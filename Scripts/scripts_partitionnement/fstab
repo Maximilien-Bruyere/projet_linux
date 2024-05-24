@@ -1,0 +1,19 @@
+
+#
+# /etc/fstab
+# Created by anaconda on Tue May 21 09:11:34 2024
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+/dev/mapper/luks-e5b0d331-9614-4f42-9505-76d4c9992f0a /                       xfs     defaults,nodev,x-systemd.device-timeout=0 0 0
+/dev/mapper/luks-6d28add6-a17f-4b5b-9ab3-c46c43446687 /backup                 xfs     defaults,nodev,nosuid,x-systemd.device-timeout=0 0 0
+UUID=a2e9cb31-aa5f-40fa-bec0-32cffe349b7c /boot                   ext4    defaults,nodev,nosuid,noexec        1 2
+/dev/mapper/luks-8376455c-27b4-4392-b166-3b0466afda33 /home                   ext4    defaults,usrquota,nodev,nosuid,x-systemd.device-timeout=0 1 2
+/dev/mapper/luks-6c2f1231-b5a6-451a-ba5b-a46e3496e9f8 /srv                    ext4    defaults,usrquota,nodev,nosuid,x-systemd.device-timeout=0 1 2
+/dev/mapper/almalinuxVG-tmp /tmp                    ext4    defaults,nodev,nosuid,noexec        1 2
+/dev/mapper/luks-3c58df0a-aa92-4ac4-9636-ca20bc81d451 /var                    ext4    defaults,nodev,nosuid,x-systemd.device-timeout=0 1 2
+/dev/mapper/luks-0ea09c79-1d1c-48c3-b24a-b92985c132ad none                    swap    defaults,x-systemd.device-timeout=0 0 0

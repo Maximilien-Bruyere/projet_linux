@@ -84,6 +84,11 @@ iptables -A INPUT -p tcp --sport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 143 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 143 -j ACCEPT
 
+iptables -A INPUT -p tcp --dport 587 -j ACCEPT
+iptables -A INPUT -p tcp --sport 587 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 587 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 587 -j ACCEPT
+
 # connexion pour maridaDB
 iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 iptables -A INPUT -p tcp --sport 3306 -j ACCEPT
@@ -101,4 +106,3 @@ iptables -I INPUT 1 -i lo -j ACCEPT
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
 iptables -P OUTPUT DROP
-
