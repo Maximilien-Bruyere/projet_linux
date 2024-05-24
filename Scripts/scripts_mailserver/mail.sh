@@ -98,3 +98,8 @@ Alias /roundcubemail /srv/web/roundcubemail
 
 
 systemctl restart httpd
+INSERT INTO users (username, mail_host, created, password) VALUES ('thib@srvlinux.g2', 'localhost', NOW(), '$2y$10$vyRSB/DsYgDLJXcSkBt.6ehuQoPE3xAUjkUHhtEzjYCTgUBKKf59q');
+
+INSERT INTO users (username, mail_host, created, password) VALUES ('thib@srvlinux.g2', 'localhost', NOW(), '$2y$10$vyRSB/DsYgDLJXcSkBt.6ehuQoPE3xAUjkUHhtEzjYCTgUBKKf59q');
+
+echo password_hash('yyyyyy', PASSWORD_BCRYPT);
