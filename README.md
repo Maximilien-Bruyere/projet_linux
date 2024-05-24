@@ -32,16 +32,17 @@ Services
 3. DNS (Domain Name System)
 4. NFS (Network File System)
 5. SAMBA
-6. Fail2Ban
-7. DHCP (Dynamic Host Configuration Protocol)
-8. Antivirus
-9. Firewalld
-10. SFTP
-11. PHPMyAdmin
-12. HTTPD
-13. ...
-
-(sera mis à jour lors de l'épreuve)
+6. FAIL2BAN
+7. HTTPD
+8. CLAMAV
+9. IPTABLES
+10. VSFTPD
+11. MOD_SSL
+12. PHPMYADMIN
+13. MARIADB
+14. MYSQL
+15. OPENSSL
+16. ROUNDCUBEMAIL
 
 Contenus dans ce dépôt
 ----------------------
