@@ -67,8 +67,6 @@ source clamav.sh
 cd /etc/Scripts/scripts_fail2ban
 source fail2ban.sh
 
-# Configuration du service MAIL - PAS GOOD
-
 # BACKUP
 cd /etc/Scripts/scripts_backup
 source rsync.sh
