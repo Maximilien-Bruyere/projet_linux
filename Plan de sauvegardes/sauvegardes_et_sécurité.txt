@@ -7,7 +7,7 @@ Configuration manuelle
 Systèmes d'exploitation utilisés pour les serveurs
 --------------------------------------------------
 
-AlmaLinux 9.2 (fiabilité, gratuit, compatibilité RedHat)
+AlmaLinux 9.4 (fiabilité, gratuit, compatibilité RedHat)
 
 -------------------
 Serveur AlmaLinux :
@@ -52,7 +52,7 @@ Options de montage :
 
 ---
 
-3. "/boot" : 2Gio
+3. "/boot" : 2Go
 
 Système de fichiers : ext4
 Type de périphérique : RAID -> RAID1
