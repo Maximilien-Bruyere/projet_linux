@@ -47,6 +47,5 @@ Services
 Contenus dans ce dépôt
 ----------------------
 
-1. Rapport
-2. Plan de sauvegardes
-3. Scripts
+1. Plan de sauvegardes
+2. Scripts
